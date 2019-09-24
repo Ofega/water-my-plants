@@ -17,7 +17,7 @@ const App = () => {
     password: ''
   }
 
- // Initial State
+ // Initial State for now. Until Redux get incorporated
   const [ newUser, setNewUser] = useState(initialNewUser);
   const [ existingUser, setExistingUser] = useState(initialExistingUser);
 
@@ -44,10 +44,14 @@ const App = () => {
       console.log(newUser);
       // ON SUBMIT, DO WHAT YOU WANT WITH THE NEW USER OBJECT HERE :)
       setNewUser(initialNewUser);
+
+      //THEN PUSH TO LOGIN
     } else {
       console.log(existingUser);
       // ON SUBMIT, DO WHAT YOU WANT WITH THE EXISTING USER OBJECT HERE :)
       setExistingUser(initialNewUser);
+
+      //THEN PUSH TO APP DASHBOARD
     }
   }
 
