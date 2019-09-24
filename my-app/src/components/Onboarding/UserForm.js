@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 import { Onboarding } from './Styles';
 
 
-const UserForm = () => {
+const UserForm = props => {
+
+  const { newUser, handleInputChange, handleFormSubmit } = props;
+  const { username, phone, password} = newUser;
 
   return (
     <Onboarding>
@@ -16,30 +19,21 @@ const UserForm = () => {
         </div>
 
         <div className="form-inputs">
-          <label htmlFor="name">Full Name</label>
-          <input type='text' id="name" name='Name' placeholder='Name' />
-          {/* {touched.name && errors.name && <p className="error-msg">{errors.name}</p>} */}
-        </div>
-
-        <div className="form-inputs">
-          <label htmlFor="email">Email Address</label>
-          <input type='email' id="email" name='email' placeholder='Email Address' />
-          {/* {touched.email && errors.email && <p className="error-msg">{errors.email}</p>} */}
+          <label htmlFor="username">Username</label>
+          <input type='text' id="username" name='username' onChange={(e) => handleInputChange(e, 'register')} value={username} placeholder='Username' required/>
         </div>
 
         <div className="form-inputs">
           <label htmlFor="phone">Phone Number</label>
-          <input type='phone' id="phone" name='phone' placeholder='Phone Number' />
-          {/* {touched.phone && errors.phone && <p className="error-msg">{errors.phone}</p>} */}
+          <input type='phone' id="phone" name='phone' onChange={(e) => handleInputChange(e, 'register')} value={phone} placeholder='Phone Number' required/>
         </div>
 
         <div className="form-inputs">
           <label htmlFor="password">Password</label>
-          <input type='password' id="password" name='password' placeholder='Password' />
-          {/* {touched.password && errors.password && <p className="error-msg">{errors.password}</p>} */}
+          <input type='password' id="password" name='password' onChange={(e) => handleInputChange(e, 'register')} value={password} placeholder='Password' required/>
         </div>
 
-        <button type='submit'>
+        <button type='submit' onClick={(e) => handleFormSubmit(e, 'register')}>
           Register
         </button>
 

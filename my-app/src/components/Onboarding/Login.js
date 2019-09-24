@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 import { Onboarding } from './Styles';
 
 
-const Login = () => {
+const Login = props => {
+
+  const { existingUser, handleInputChange, handleFormSubmit } = props;
+  const { username, password} = existingUser;
 
   return (
     <Onboarding>
@@ -16,18 +19,16 @@ const Login = () => {
         </div>
 
         <div className="form-inputs">
-          <label htmlFor="email">Email Address</label>
-          <input type='email' id="email" name='email' placeholder='Email Address' />
-          {/* {touched.email && errors.email && <p className="error-msg">{errors.email}</p>} */}
+          <label htmlFor="username">Username</label>
+          <input type='text' id="username" name='username' onChange={(e) => handleInputChange(e, 'login')} value={username} placeholder='Username' required/>
         </div>
 
         <div className="form-inputs">
           <label htmlFor="password">Password</label>
-          <input type='password' id="password" name='password' placeholder='Password' />
-          {/* {touched.password && errors.password && <p className="error-msg">{errors.password}</p>} */}
+          <input type='password' id="password" name='password' onChange={(e) => handleInputChange(e, 'login')} value={password} placeholder='Password' required/>
         </div>
 
-        <button type='submit'>
+        <button type='submit' onClick={(e) => handleFormSubmit(e, 'login')}>
           Login
         </button>
 
