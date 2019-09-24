@@ -7,6 +7,6 @@ import FormikApp from "./App";
 
 ReactDOM.render(
     <Router>   
-<FormikApp />
-</Router>,
+        <FormikApp />
+    </Router>,
  document.getElementById('root'));
