@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import notFound from "../img/not-found.svg";
 
 
 const PlantsList = props => {
@@ -25,10 +26,8 @@ const PlantsList = props => {
                     </ul>
                 ) : (
                     <div className="empty-state">
-                        <button>
-                            +
-                        </button>
-                        <p>Add new plant</p>
+                        <img src={notFound} alt="No plants added yet" />
+                        <p> You don't have any plants yet</p>
                     </div>
                 )
             }
@@ -71,40 +70,19 @@ const ListContainer = styled.div`
     }
 
     .empty-state {
-        min-height: 600px;
+        min-height: 500px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
 
-        button {
-            color: #fff;
-            font-size: 4rem;
-            font-weight: 600;
-            outline: 0;
-            border: none;
-            background: #419BA0 none;
-            text-align: center;
-            border-radius: 5px;
-            box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
-            user-select: none;
-            transition: opacity .1s ease,background-color .1s ease,color .1s ease,box-shadow .1s ease,background .1s ease,-webkit-box-shadow .1s ease;
-            -webkit-tap-highlight-color: transparent;
-            padding: .5rem 2rem;
-
-            &:hover {
-                background-color: #63ADB1;
-                background-image: none;
-                -webkit-box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
-                box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
-                color: rgba(255, 255, 255, .8);
-            }
+        img {
+            max-width: 150px;
         }
 
         p {
-            font-weight: 600;
-            font-size: 2rem;
-            margin-top: 2rem;
+            margin-top: .5rem;
+            font-size: 1.2rem;
         }
     }
 `
