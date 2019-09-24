@@ -1,4 +1,4 @@
-import { axiosWithAuth } from "./axiosWithAuth"
+import  { axiosWithAuth } from "../utils/axiosWithAuth"
 export const USER_SIGNUP = "USER_SIGNUP";
 export const USER_SIGNUP_SUCCESS = "USER_SIGNUP_SUCCESS";
 export const USER_SIGNUP_FAILURE = "USER_SIGNUP_FAILURE";
@@ -21,12 +21,11 @@ export const EDIT_PLANT_FAILURE = "EDIT_PLANT_FAILURE"
 
 //add failures
 
-
-export const userSignUp = (newUser) => (dispatch) =>{
+export const userSignUp = (newUser, props) => (dispatch) =>{
     dispatch({type: USER_SIGNUP});
 
         axiosWithAuth()
-        .post("/createnewuser", newUser) //check this path
+        .post("/createnewuser", newUser) //this information should be imported from the sign up form.
         .then(res=>{
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("username", res.data.user.username) //might not need "user" here
@@ -72,7 +71,7 @@ export const getPlant = (userid) => (dispatch) =>{
         
     })
     .catch(err => console.log("error inside get plant actions", err),
-    dispatch({type: GET_PLANT_FAILURE}))
+    dispatch({type: GET_PLANTS_FAILURE}))
 }
 
 
