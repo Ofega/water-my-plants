@@ -6,7 +6,7 @@ import { Onboarding } from './Styles';
 const Login = props => {
 
   const { existingUser, handleInputChange, handleFormSubmit } = props;
-  const { username, password} = existingUser;
+  const { loginUsername, loginPassword } = existingUser;
 
   return (
     <Onboarding>
@@ -20,12 +20,12 @@ const Login = props => {
 
         <div className="form-inputs">
           <label htmlFor="username">Username</label>
-          <input type='text' id="username" name='username' onChange={(e) => handleInputChange(e, 'login')} value={username} placeholder='Username' required/>
+          <input type='text' id="loginUsername" name='username' onChange={(e) => handleInputChange(e, 'login')} value={loginUsername} placeholder='Username' required/>
         </div>
 
         <div className="form-inputs">
           <label htmlFor="password">Password</label>
-          <input type='password' id="password" name='password' onChange={(e) => handleInputChange(e, 'login')} value={password} placeholder='Password' required/>
+          <input type='password' id="loginPassword" name='password' onChange={(e) => handleInputChange(e, 'login')} value={loginPassword} placeholder='Password' required/>
         </div>
 
         <button type='submit' onClick={(e) => handleFormSubmit(e, 'login')}>

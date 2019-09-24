@@ -13,8 +13,8 @@ const App = () => {
   }
 
   const initialExistingUser = {
-    username: '',
-    password: ''
+    loginUsername: '',
+    loginPassword: ''
   }
 
  // Initial State for now. Until Redux get incorporated
@@ -29,7 +29,7 @@ const App = () => {
         ...newUser,
         [e.target.id]: e.target.value
       })
-    } else {
+    } else if(formType === 'login') {
       setExistingUser({
         ...existingUser,
         [e.target.id]: e.target.value
@@ -38,20 +38,31 @@ const App = () => {
   }
 
   const handleFormSubmit = (e, formType) => {
-    e.preventDefault();
+    const { username, phone, password } = newUser;
+    const { loginUsername, loginPassword } = existingUser;
 
-    if(formType === 'register') {
-      console.log(newUser);
-      // ON SUBMIT, DO WHAT YOU WANT WITH THE NEW USER OBJECT HERE :)
-      setNewUser(initialNewUser);
+    // Note: Check formType, then check if all form fields are filled under each form type. If they are, then submit. If they are not, html5 form validation will take place.
 
-      //THEN PUSH TO LOGIN
-    } else {
-      console.log(existingUser);
-      // ON SUBMIT, DO WHAT YOU WANT WITH THE EXISTING USER OBJECT HERE :)
-      setExistingUser(initialNewUser);
+    if(formType === 'register') { 
+      if(username && phone && password) {
+        e.preventDefault();
 
-      //THEN PUSH TO APP DASHBOARD
+        console.log(newUser);
+        // ON SUBMIT, DO WHAT YOU WANT WITH THE NEW USER OBJECT HERE :)
+        setNewUser(initialNewUser);
+
+        //THEN PUSH TO LOGIN
+      }
+    } else if(formType === 'login') {
+      if(loginUsername && loginPassword) {
+        e.preventDefault();
+
+        console.log(existingUser);
+        // ON SUBMIT, DO WHAT YOU WANT WITH THE EXISTING USER OBJECT HERE :)
+        setExistingUser(initialExistingUser);
+
+        //THEN PUSH TO APP DASHBOARD
+      }
     }
   }
 
