@@ -6,11 +6,11 @@ import Login from "./Login";
 function AppRouter() {
     return (
       <Router>
-          <Switch>
+        <Switch>
           <Route path="/" exact component={UserForm} />
           <Route path="/Login" component={Login} />
-          </Switch>
-          </Router>
+        </Switch>
+      </Router>
   );
 }
 
