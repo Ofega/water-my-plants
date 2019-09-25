@@ -1,6 +1,6 @@
 import React from 'react';
 import { Onboarding } from './Styles';
-import { LoginForm } from '../Forms';
+import LoginForm from '../Forms/LoginForm';
 
 
 const Login = props => {
