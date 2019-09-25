@@ -18,7 +18,7 @@ const PlantsList = props => {
                                         <p>Species: <span>{species}</span></p>
                                         <p>Name: <span>{name}</span></p>
                                         <p>Location: <span>{location}</span></p>
-                                        <p>Schedule: <span>{schedule}</span></p>
+                                        <p>Schedule: <span>{schedule > 1 ? `${schedule} times` : 'Once'} a week</span></p>
                                     </li>
                                 )
                             })
@@ -39,7 +39,7 @@ export default PlantsList;
 
 const ListContainer = styled.div`
     max-width: 1140px;
-    margin: 4rem auto 0;
+    margin: 6rem auto 0;
 
     ul {
         list-style: none;
