@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import PlantsList from "../components/PlantsList";
+import  PlantsList from "../components/PlantsList";
 import onboardingBG from '../img/onboarding-bg.jpg';
 
 

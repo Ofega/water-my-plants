@@ -22,8 +22,8 @@ export const EDIT_PLANT_FAILURE = "EDIT_PLANT_FAILURE"
 
 //add failures
 
-export const userSignUp = (newUser) =>{
-    // dispatch({type: USER_SIGNUP});
+export const userSignUp = (newUser) => (dispatch)=>{
+    dispatch({type: USER_SIGNUP});
     console.log("TESTING")
         axios
         .post("https://nchampag-watermyplants.herokuapp.com/createnewuser", newUser) //this information should be imported from the sign up form. //done
@@ -41,36 +41,12 @@ export const userSignUp = (newUser) =>{
         .catch(error => console.log("error FROM USERSIGNUP inside actions", error),
         // dispatch({type: USER_SIGNUP_FAILURE})
         );  
-} //protected path should be profile page with plants and user information.
+} 
 
-///////////
-export const testFunc = (newUser)=>{
-    console.log("this is inside of testFunc", newUser)
-}
+///////LOGIN///////////
 
 
-
-///////
-// export const userLogIn = ( creds ) => ( dispatch ) =>{
-//     console.log("LOGGING IN");
-//     dispatch({type: USER_LOGIN});
-//     return axiosWithAuth()
-//         .post("ENTER URL", creds)
-//         .then(res=>{
-//                 localStorage.setItem("token", res.data.token);
-//                 localStorage.setItem("userID", res.data.user.password);
-//                 dispatch({
-//                     type: USER_LOGIN_SUCCESS
-//                 });
-//         })
-//         .catch(error => {
-//             console.log("error inside userlogin actions", error)
-//             dispatch({type: USER_LOGIN_FAILURE})
-//         })
-// }
-
-
-export const userLogIn = (newUser) => {
+export const userLogIn = (newUser) => { //WHEN I TRY TO CURRY DISPATCH HERE IT BREAKS THE CODE
     
     //   dispatch({ type: LOGIN_START });
       axios
@@ -85,22 +61,18 @@ export const userLogIn = (newUser) => {
           }
         )
         .then(res => {
-          console.log(res);
-          localStorage.setItem("token", res.data.token);
+          console.log("cat", res);
+          localStorage.setItem("token", res.data.access_token);
         //   dispatch({ type: LOGIN_SUCCESS });
-        //   dispatch({type: GETTING_USER})
-        //   axiosWithAuth()
-        //       .get('getusername')
-        //       .then(res => {
-        //         console.log(res)
-        //         // dispatch({type: GOT_USER, payload: res.data})
-        //         // dispatch({type: GETTING_PLANTS})
                 axiosWithAuth()
                   .get(`plants/userName/${newUser.username}`)
                   .then(res => {
                       console.log("res inside userName", res)
                     //   (PLANTS HERE ARE INSIDE OF Response.DATA)
-                    // dispatch({type: GOT_PLANTS, payload: res.data})
+                      
+                    //WE NEED TO MAP OVER THESE PLANTS
+
+                    // dispatch({type: GET_PLANTS, payload: res.data})
                     // history.push('/plantList')
                 })
                   })
@@ -158,4 +130,4 @@ export const addPlant = (newPlant) => dispatch => { //new plant should come from
     // dispatch({type: ADD_PLANT_FAILURE})
     )
 }
-addPlant(newPlant);
+// addPlant(newPlant);

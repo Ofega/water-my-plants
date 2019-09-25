@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import UserForm from "./components/Onboarding/UserForm";
 import Login from "./components/Onboarding/Login";
@@ -166,3 +167,4 @@ const App = () => {
 }
 
 export default App;
+
