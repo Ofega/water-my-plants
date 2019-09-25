@@ -126,7 +126,7 @@ export const AddPlantsForm = props => {
 
             <div className="form-inputs">
                 <label htmlFor="plantname">Name</label>
-                <input type='text' id="plantname" name='plantname' onChange={(e) => handleInputChange(e, 'add-plant')} value={name} placeholder='Plant Name' required/>
+                <input type='text' id="name" name='plantname' onChange={(e) => handleInputChange(e, 'add-plant')} value={name} placeholder='Plant Name' required/>
             </div>
 
             <div className="form-inputs">
