@@ -142,20 +142,20 @@ export const getPlant = (userid) => (dispatch) =>{
 }
 
 
-
-export const addPlant = newPlant => dispatch => { //new plant should come from the newPlant form
-    // dispatch({ type: ADD_PLANT});
+export const addPlant = (newPlant) => dispatch => { //new plant should come from the newPlant form and the variable it's assigned to.
+    dispatch({ type: ADD_PLANT});
 
     return axiosWithAuth()
     .post("/plants/plant", newPlant)
     .then(res => {
-        // dispatch({
-        //     type: ADD_PLANT_SUCCESS,
-        //     payload: res.data
-        // })
-        //need to add notifications here.
+        console.log("res inside addPlant", res)
+        dispatch({
+            type: ADD_PLANT_SUCCESS,
+            payload: res.data
+        })
     })
     .catch(error => console.log("error inside addPlant actions", error),
     // dispatch({type: ADD_PLANT_FAILURE})
     )
 }
+addPlant(newPlant);
