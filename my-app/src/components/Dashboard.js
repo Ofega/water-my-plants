@@ -2,13 +2,14 @@ import React from 'react';
 import { Route, Switch, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import onboardingBG from '../img/onboarding-bg.jpg';
+import logo from '../img/logo.jpg';
 import PlantsList from "./PlantsList";
 import EditProfile from './EditProfile';
 
 
 const Dashboard = props => {
 
-    const { plantsList } = props;
+    const { plantsList, loggedInUser, handleFormSubmit, handleInputChange } = props;
 
     return (
         <MainContainer>
@@ -16,6 +17,7 @@ const Dashboard = props => {
                 <div className="navigation">
                     <h1 className="logo">
                         Water My plants
+                        <span><img src={logo} alt="Water my plants logo" /></span>
                     </h1>
                     <ul>
                         <li><NavLink activeClassName='selected' exact to="/">Dashboard</NavLink></li>
@@ -27,7 +29,7 @@ const Dashboard = props => {
             <header>
                 <img src={onboardingBG} alt="Header Background" />
                 <div className="header-content">
-                    <h1>Welcome Smithy!</h1>
+                    <h1>Welcome {loggedInUser.username}!</h1>
                     
                     <button>
                         +
@@ -46,7 +48,12 @@ const Dashboard = props => {
 
                 <Route 
                     path="/edit-profile" 
-                    render={(props) => <EditProfile {...props} />}
+                    render={(props) => <EditProfile 
+                        {...props} 
+                        loggedInUser={loggedInUser} 
+                        handleFormSubmit={handleFormSubmit} 
+                        handleInputChange={handleInputChange} 
+                    />}
                 />
             </Switch>
         </MainContainer>
@@ -66,25 +73,40 @@ const MainContainer = styled.div`
         z-index: 6;
 
         .navigation {
-            max-width: 1140px;
+            max-width: calc(1140px - 4rem);
             margin: 0 auto;
             width: 100%;
             background: #fff;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             min-height: 40px;
-            padding: 0 0 0 2rem;
+            padding: 0 2rem;
 
             .logo {
-              max-width: 200px;
-              font-family: 'Indie Flower', cursive;
+                max-width: 270px;
+                width: 100%;
+                font-size: 2.5rem;
+                font-family: 'Indie Flower', cursive;
+                display: flex;
+                align-items: center;
+
+                span {
+                    max-width: 30px;
+                    margin-top: 1rem;
+                    margin-left: 1rem;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
             }
 
             ul {
                 list-style-type: none;
                 display: flex;
                 width: calc(100% - 200px);
-                margin-left: 6rem;
                 position: relative
 
                 li {
@@ -144,12 +166,17 @@ const MainContainer = styled.div`
             max-width: 1140px;
             margin: 0 auto 1rem;
             width: 100%;
+            padding: 0 2rem;
 
             h1 {
                 position: relative;
                 color: #fff;
-                font-size: 3rem;
+                font-size: 2.3rem;
                 margin: 0;
+
+                @media (min-width: 500px) {
+                    font-size: 3rem;
+                }
             }
 
             button {
@@ -166,7 +193,7 @@ const MainContainer = styled.div`
                 transition: opacity .1s ease,background-color .1s ease,color .1s ease,box-shadow .1s ease,background .1s ease,-webkit-box-shadow .1s ease;
                 -webkit-tap-highlight-color: transparent;
                 position: absolute;
-                right: 0;
+                right: 2rem;
                 bottom: -40px;
                 width: 70px;
                 height: 70px;

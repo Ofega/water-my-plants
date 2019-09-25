@@ -39,20 +39,33 @@ export default PlantsList;
 
 const ListContainer = styled.div`
     max-width: 1140px;
-    margin: 6rem auto 0;
+    margin: 6rem auto 3rem;
+    padding: 0 2rem;
 
     ul {
         list-style: none;
-        display: grid
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 2rem;
+
+        @media (min-width: 450px) {
+            grid-template-columns: repeat(2, 1fr);
+        } 
+
+        @media (min-width: 768px) {
+            grid-template-columns: repeat(3, 1fr);
+        } 
+
+        @media (min-width: 1140px) {
+            grid-template-columns: repeat(4, 1fr);
+        } 
 
         li {
-            width: calc(25% - 15px);
             min-height: 100px;
             height: auto;
             border-radius: 5px;
             box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
             padding: 2rem;
-            margin-bottom: 2rem;
 
             p {
                 font-size: 1.4rem;

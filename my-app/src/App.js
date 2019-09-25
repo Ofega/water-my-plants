@@ -20,8 +20,15 @@ const App = () => {
     loginPassword: ''
   }
 
+  const initialLoggedInUser = {
+    username: 'Smithy',
+    phonenumber: '08101149643',
+    password: 'Qwerty'
+  }
+
  // Initial State for now. Until Redux get incorporated
   const [ newUser, setNewUser] = useState(initialNewUser);
+  const [ loggedInUser, setLoggedInUser] = useState(initialLoggedInUser);
   const [ existingUser, setExistingUser] = useState(initialExistingUser);
   const [ plantsList, setPlantsList ] = useState([
     {
@@ -95,6 +102,11 @@ const App = () => {
         ...existingUser,
         [e.target.id]: e.target.value
       })
+    } else if(formType === 'edit-profile') {
+      setLoggedInUser({
+        ...loggedInUser,
+        [e.target.id]: e.target.value
+      })
     }
   }
 
@@ -160,6 +172,9 @@ const App = () => {
         render={(props) => <Dashboard
           {...props}
           plantsList={plantsList}
+          loggedInUser={loggedInUser} 
+          handleFormSubmit={handleFormSubmit} 
+          handleInputChange={handleInputChange} 
         />}
       />
     </Switch>
