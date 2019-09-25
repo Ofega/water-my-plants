@@ -89,15 +89,17 @@ export const userLogIn = (newUser) => {
           localStorage.setItem("token", res.data.token);
         //   dispatch({ type: LOGIN_SUCCESS });
         //   dispatch({type: GETTING_USER})
-          axiosWithAuth()
-              .get('getusername')
-              .then(res => {
-                console.log(res)
-                // dispatch({type: GOT_USER, payload: res.data})
-                // dispatch({type: GETTING_PLANTS})
+        //   axiosWithAuth()
+        //       .get('getusername')
+        //       .then(res => {
+        //         console.log(res)
+        //         // dispatch({type: GOT_USER, payload: res.data})
+        //         // dispatch({type: GETTING_PLANTS})
                 axiosWithAuth()
-                  .get(`plants/userName/${res.data.username}`)
+                  .get(`plants/userName/${newUser.username}`)
                   .then(res => {
+                      console.log("res inside userName", res)
+                    //   (PLANTS HERE ARE INSIDE OF Response.DATA)
                     // dispatch({type: GOT_PLANTS, payload: res.data})
                     // history.push('/plantList')
                 })
@@ -108,7 +110,7 @@ export const userLogIn = (newUser) => {
                 console.log(err.response)
                 // dispatch({type: ERROR_GETTING_USER, payload: err.response})
             })
-        })
+        // })
         .catch(err => {
           console.dir(err);
         //   dispatch({ type: LOGIN_FAIL });
@@ -128,6 +130,7 @@ export const getPlant = (userid) => (dispatch) =>{
     axiosWithAuth
     .get(`/plants/${userid}`)//check this
     .then(res =>{
+        console.log("res inside getPlant", res)
         dispatch({ type: GET_PLANTS_SUCCESS,
                     payload: res.data
         });

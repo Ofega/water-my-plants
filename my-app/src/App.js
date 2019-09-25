@@ -60,8 +60,10 @@ const App = () => {
     } else if(formType === 'login') {
       if(loginUsername && loginPassword) {
         e.preventDefault();
-        userLogIn(existingUser);
-        console.log("existingUser", existingUser);
+        userLogIn({username: existingUser.loginUsername, password: existingUser.loginPassword});
+        console.log("Object made in login form",{username: existingUser.loginUsername, password: existingUser.loginPassword});
+
+        // console.log("existingUser", existingUser);
         // ON SUBMIT, DO WHAT YOU WANT WITH THE EXISTING USER OBJECT HERE :)
         setExistingUser(newUser);
 
