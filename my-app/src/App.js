@@ -153,7 +153,7 @@ const App = () => {
 
         // console.log("existingUser", existingUser);
         // ON SUBMIT, DO WHAT YOU WANT WITH THE EXISTING USER OBJECT HERE :)
-        setExistingUser(newUser);
+        setExistingUser(initialExistingUser);
 
         //THEN PUSH TO APP DASHBOARD
       }
