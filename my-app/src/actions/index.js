@@ -69,16 +69,8 @@ export const userLogIn = (newUser) => { //WHEN I TRY TO CURRY DISPATCH HERE IT B
                   .then(res => {
                       console.log("res inside userName", res)
                     //   (PLANTS HERE ARE INSIDE OF Response.DATA)
-<<<<<<< HEAD
-                      
-                    //WE NEED TO MAP OVER THESE PLANTS
-
-                    // dispatch({type: GET_PLANTS, payload: res.data})
-                    // history.push('/plantList')
-=======
                     // dispatch({type: GOT_PLANTS, payload: res.data})
                     // history.push('/dashboard')
->>>>>>> master
                 })
                   })
                 //   .catch(err => 
@@ -122,21 +114,6 @@ export const getPlant = (userid) => (dispatch) =>{
 // export const addPlant = (newPlant) => dispatch => { //new plant should come from the newPlant form and the variable it's assigned to.
 //     dispatch({ type: ADD_PLANT});
 
-<<<<<<< HEAD
-    return axiosWithAuth()
-    .post("/plants/plant", newPlant)
-    .then(res => {
-        console.log("res inside addPlant", res)
-        dispatch({
-            type: ADD_PLANT_SUCCESS,
-            payload: res.data
-        })
-    })
-    .catch(error => console.log("error inside addPlant actions", error),
-    // dispatch({type: ADD_PLANT_FAILURE})
-    )
-}
-=======
 //     return axiosWithAuth()
 //     .post("/plants/plant", newPlant)
 //     .then(res => {
@@ -150,5 +127,4 @@ export const getPlant = (userid) => (dispatch) =>{
 //     // dispatch({type: ADD_PLANT_FAILURE})
 //     )
 // }
->>>>>>> master
 // addPlant(newPlant);

@@ -1,10 +1,6 @@
 import React from 'react';
 import { Route, Switch, NavLink } from "react-router-dom";
 import styled from "styled-components";
-<<<<<<< HEAD
-import  PlantsList from "../components/PlantsList";
-=======
->>>>>>> master
 import onboardingBG from '../img/onboarding-bg.jpg';
 import logo from '../img/logo.jpg';
 import PlantsList from "./PlantsList";
