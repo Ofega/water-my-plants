@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from "styled-components";
 import notFound from "../img/not-found.svg";
+import { connect } from 'react-redux';
 
+//HERE I NEED TO IMPORT AN ACTION CREATOR FROM ACTIONS FILE, DESTRUCTURE PROPS, MIGHT NEED USESTATE TO POPULATE PLANTS UPON
 
-const PlantsList = props => {
+export const PlantsList = props => {
     const { plantsList } = props;
 
     return (
@@ -35,8 +37,22 @@ const PlantsList = props => {
     )
 }
 
-export default PlantsList;
 
+const mapStateToProps = state => {
+    return {
+      species: state.plants.species,
+      name: state.plants.name,
+      location: state.plants.location,
+      schedule: state.plants.schedule,
+      user: state.plants.user.user
+    }
+  }
+
+
+export default connect(mapStateToProps, {})(PlantsList)
+
+
+////////STYLING/////////
 const ListContainer = styled.div`
     max-width: 1140px;
     margin: 6rem auto 3rem;

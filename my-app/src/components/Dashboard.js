@@ -3,7 +3,7 @@ import { Route, Switch, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import onboardingBG from '../img/onboarding-bg.jpg';
 import logo from '../img/logo.jpg';
-import PlantsList from "./PlantsList";
+import { PlantsList } from "./PlantsList";
 import EditProfile from './EditProfile';
 import AddPlantsModal from './AddPlantsModal';
 

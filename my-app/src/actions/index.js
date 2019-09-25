@@ -23,9 +23,10 @@ export const EDIT_PLANT_FAILURE = "EDIT_PLANT_FAILURE"
 //add failures
 
 export const userSignUp = (newUser) =>{
+  console.log("ANOTHER TEST")
     // dispatch({type: USER_SIGNUP});
     console.log("TESTING")
-        axios
+       return axios
         .post("https://nchampag-watermyplants.herokuapp.com/createnewuser", newUser) //this information should be imported from the sign up form. //done
         .then(res=>{
             console.log("res inside of userSignUp",res)
@@ -39,8 +40,8 @@ export const userSignUp = (newUser) =>{
             // });
         })
         .catch(error => console.log("error FROM USERSIGNUP inside actions", error),
-        // dispatch({type: USER_SIGNUP_FAILURE})
-        );  
+         ); 
+    
 } 
 
 ///////LOGIN///////////
@@ -94,10 +95,10 @@ export const userLogIn = (newUser) => { //WHEN I TRY TO CURRY DISPATCH HERE IT B
 
 
 export const getPlant = (userid) => (dispatch) =>{
-    // dispatch({type: GET_PLANTS});
+    dispatch({type: GET_PLANTS});
 //this will return ALL of the specific users plants and should run when the user has a successful login
-    axiosWithAuth
-    .get(`/plants/${userid}`)//check this
+  axiosWithAuth()
+    .get(`plants/${userid}`)//check this userID
     .then(res =>{
         console.log("res inside getPlant", res)
         dispatch({ type: GET_PLANTS_SUCCESS,
@@ -109,6 +110,7 @@ export const getPlant = (userid) => (dispatch) =>{
     // dispatch({type: GET_PLANTS_FAILURE})
     )
 }
+
 
 
 export const addPlant = (newPlant) => { //new plant should come from the newPlant form and the variable it's assigned to.

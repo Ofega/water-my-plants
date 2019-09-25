@@ -6,7 +6,7 @@ error: false,
 plants: [{
     "species": "",
     "name": "",
-    "location": "",
+    "location": "kitchen",
     "schedule": 0,
     "user":{
         "user": 0
