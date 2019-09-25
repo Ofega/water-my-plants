@@ -6,7 +6,7 @@ import { Onboarding } from './Styles';
 const UserForm = props => {
 
   const { newUser, handleInputChange, handleFormSubmit } = props;
-  const { username, phone, password} = newUser;
+  const { username, phonenumber, password} = newUser;
 
   return (
     <Onboarding>
@@ -24,8 +24,8 @@ const UserForm = props => {
         </div>
 
         <div className="form-inputs">
-          <label htmlFor="phone">Phone Number</label>
-          <input type='phone' id="phone" name='phone' onChange={(e) => handleInputChange(e, 'register')} value={phone} placeholder='Phone Number' required/>
+          <label htmlFor="phonenumber">Phone Number</label>
+          <input type='phonenumber' id="phonenumber" name='phonenumber' onChange={(e) => handleInputChange(e, 'register')} value={phonenumber} placeholder='Phone Number' required/>
         </div>
 
         <div className="form-inputs">
