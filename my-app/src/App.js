@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import UserForm from "./components/Onboarding/UserForm";
 import Login from "./components/Onboarding/Login";
 import { userSignUp, testFunc, userLogIn } from "./actions"
+import Dashboard from "./components/Dashboard";
 
 const App = () => {
 
@@ -18,9 +19,69 @@ const App = () => {
     loginPassword: ''
   }
 
+  const mockPlantData = [
+    {
+    id: 1,
+    species: 'Lucky Bamboo1',
+    name: 'Bambi',
+    location: 'Kitchen',
+    schedule: 4,
+    },
+    {
+      id: 2,
+      species: 'Lucky Bamboo1',
+      name: 'Bambi',
+      location: 'Kitchen',
+      schedule: 4,
+    },
+    {
+      id: 3,
+      species: 'Lucky Bamboo1',
+      name: 'Bambi',
+      location: 'Kitchen',
+      schedule: 4,
+    },
+    {
+      id: 4,
+      species: 'Lucky Bamboo1',
+      name: 'Bambi',
+      location: 'Kitchen',
+      schedule: 4,
+    },
+    {
+      id: 5,
+      species: 'Lucky Bamboo1',
+      name: 'Bambi',
+      location: 'Kitchen',
+      schedule: 4,
+    },
+    {
+      id: 6,
+      species: 'Lucky Bamboo1',
+      name: 'Bambi',
+      location: 'Kitchen',
+      schedule: 4,
+    },
+    {
+      id: 7,
+      species: 'Lucky Bamboo1',
+      name: 'Bambi',
+      location: 'Kitchen',
+      schedule: 4,
+    },
+    {
+      id: 8,
+      species: 'Lucky Bamboo1',
+      name: 'Bambi',
+      location: 'Kitchen',
+      schedule: 4,
+    }
+  ]
+
  // Initial State for now. Until Redux get incorporated
   const [ newUser, setNewUser] = useState(initialNewUser);
   const [ existingUser, setExistingUser] = useState(initialExistingUser);
+  const [ plantsList, setPlantsList ] = useState([]);
 
 
   // Handler Functions
@@ -90,6 +151,14 @@ const App = () => {
           existingUser={existingUser} 
           handleFormSubmit={handleFormSubmit} 
           handleInputChange={handleInputChange} 
+        />}
+      />
+
+      <Route 
+        path="/dashboard" 
+        render={(props) => <Dashboard 
+          {...props}
+          plantsList={plantsList}
         />}
       />
     </Switch>
