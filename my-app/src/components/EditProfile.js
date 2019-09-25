@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import { EditProfileForm } from './Forms';
+import EditProfileForm from './Forms/EditProfileForm';
 
 
 const EditProfile = props => {

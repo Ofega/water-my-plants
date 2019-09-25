@@ -10,8 +10,7 @@ import AddPlantsModal from './AddPlantsModal';
 
 const Dashboard = props => {
 
-    const { plantsList, isModalOpen, showModal, loggedInUser, newPlant, handleFormSubmit, handleInputChange } = props;
-    const { username } = loggedInUser;
+    const { plantsList, isModalOpen, showModal } = props;
 
     return (
         <MainContainer>
@@ -31,14 +30,14 @@ const Dashboard = props => {
             <header>
                 <img src={onboardingBG} alt="Header Background" />
                 <div className="header-content">
-                    <h1>Welcome {username}!</h1>
+                    <h1>Welcome Smithy!</h1>
                     
                     <button onClick={showModal}>
                         +
                     </button>
                 </div>
             </header>
-            <AddPlantsModal isModalOpen={isModalOpen} showModal={showModal} newPlant={newPlant} handleFormSubmit={handleFormSubmit} handleInputChange={handleInputChange} />
+            <AddPlantsModal isModalOpen={isModalOpen} showModal={showModal} />
             
             <Switch>
                 <Route 
@@ -51,12 +50,7 @@ const Dashboard = props => {
 
                 <Route 
                     path="/edit-profile" 
-                    render={(props) => <EditProfile 
-                        {...props} 
-                        loggedInUser={loggedInUser} 
-                        handleFormSubmit={handleFormSubmit} 
-                        handleInputChange={handleInputChange} 
-                    />}
+                    render={(props) => <EditProfile {...props} />}
                 />
             </Switch>
         </MainContainer>
