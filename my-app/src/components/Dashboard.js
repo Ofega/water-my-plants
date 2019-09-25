@@ -5,11 +5,13 @@ import onboardingBG from '../img/onboarding-bg.jpg';
 import logo from '../img/logo.jpg';
 import PlantsList from "./PlantsList";
 import EditProfile from './EditProfile';
+import AddPlantsModal from './AddPlantsModal';
 
 
 const Dashboard = props => {
 
-    const { plantsList, loggedInUser, handleFormSubmit, handleInputChange } = props;
+    const { plantsList, isModalOpen, showModal, loggedInUser, newPlant, handleFormSubmit, handleInputChange } = props;
+    const { username } = loggedInUser;
 
     return (
         <MainContainer>
@@ -29,13 +31,14 @@ const Dashboard = props => {
             <header>
                 <img src={onboardingBG} alt="Header Background" />
                 <div className="header-content">
-                    <h1>Welcome {loggedInUser.username}!</h1>
+                    <h1>Welcome {username}!</h1>
                     
-                    <button>
+                    <button onClick={showModal}>
                         +
                     </button>
                 </div>
             </header>
+            <AddPlantsModal isModalOpen={isModalOpen} showModal={showModal} newPlant={newPlant} handleFormSubmit={handleFormSubmit} handleInputChange={handleInputChange} />
             
             <Switch>
                 <Route 

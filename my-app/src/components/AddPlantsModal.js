@@ -1,31 +1,38 @@
 import React from 'react';
 import styled from "styled-components";
-import { EditProfileForm } from './Forms';
+import { AddPlantsForm } from './Forms';
 
 
-const EditProfile = props => {
+const AddPlantsModal = props => {
 
-  const { loggedInUser, handleInputChange, handleFormSubmit } = props;
+  const { isModalOpen, showModal, newPlant, handleInputChange, handleFormSubmit } = props;
 
   return (
-    <MainContainer>
-      <div className="hero-background"></div>
-      <EditProfileForm 
-        loggedInUser={loggedInUser}
-        handleInputChange={handleInputChange}
-        handleFormSubmit={handleFormSubmit}
-      />
-    </MainContainer>
+    isModalOpen ? (
+      <MainContainer>
+        <div className="hero-background"></div>
+        <AddPlantsForm 
+          showModal={showModal}
+          newPlant={newPlant}
+          handleInputChange={handleInputChange}
+          handleFormSubmit={handleFormSubmit}
+        />
+      </MainContainer>
+    ) : null
   );
 };
 
-export default EditProfile;
+export default AddPlantsModal;
 
 const MainContainer = styled.div`
-    max-width: 1140px;
-    margin: 7rem auto 3rem;
-    padding: 0 2rem;
     display: flex;
     align-items: center;
     flex-direction: column;
+    position: fixed;
+    background: rgba(0, 0, 0, .9);
+    width: 100%;
+    top: 0;
+    justify-content: center;
+    height: 100%;
+    z-index: 1000;
 `

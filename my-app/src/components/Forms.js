@@ -106,6 +106,47 @@ export const EditProfileForm = props => {
 }
 
 
+export const AddPlantsForm = props => {
+
+    const { showModal, newPlant, handleInputChange, handleFormSubmit } = props;
+    const { species, name, location, schedule } = newPlant;
+
+    return (
+        <Form autoComplete="off">
+            <button onClick={showModal} className="close-btn">x</button>
+
+            <div className="form-header">
+                <h1>Add New Plant</h1>
+            </div>
+
+            <div className="form-inputs">
+                <label htmlFor="species">Specie</label>
+                <input type='text' id="species" name='species' onChange={(e) => handleInputChange(e, 'add-plant')} value={species} placeholder='Species' required/>
+            </div>
+
+            <div className="form-inputs">
+                <label htmlFor="plantname">Name</label>
+                <input type='text' id="plantname" name='plantname' onChange={(e) => handleInputChange(e, 'add-plant')} value={name} placeholder='Plant Name' required/>
+            </div>
+
+            <div className="form-inputs">
+                <label htmlFor="location">Location</label>
+                <input type='text' id="location" name='location' onChange={(e) => handleInputChange(e, 'add-plant')} value={location} placeholder='Location' required/>
+            </div>
+
+            <div className="form-inputs">
+                <label htmlFor="schedule">Schedule</label>
+                <input type='number' id="schedule" name='schedule' onChange={(e) => handleInputChange(e, 'add-plant')} value={schedule} placeholder='Schedule' required/>
+            </div>
+
+            <button type='submit' onClick={(e) => handleFormSubmit(e, 'add-plant')}>
+                Add Plant
+            </button>
+        </Form>
+    )
+}
+
+
 const Form = styled.form`
     padding: 4rem 3rem;
     min-height: 350px;
@@ -118,6 +159,11 @@ const Form = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+
+    .close-btn {
+        border: 2px solid red;
+    }
 
     .form-header {
         text-align: center;
@@ -203,6 +249,26 @@ const Form = styled.form`
             -webkit-box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
             box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
             color: rgba(255, 255, 255, .8);
+        }
+
+        &.close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 25px;
+            height: 25px;
+            min-width: auto;
+            margin: 0;
+            border-radius: 100%;
+            padding: 0;
+            min-height: auto;
+            background: transparent;
+            color: red
+
+            &:hover {
+                background: red;
+                color: #fff
+            }
         }
     }
 

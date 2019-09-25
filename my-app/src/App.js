@@ -26,8 +26,17 @@ const App = () => {
     password: 'Qwerty'
   }
 
+  const initialPlant = {
+    species: '',
+    name: '',
+    location: '',
+    schedule: '',
+  }
+
  // Initial State for now. Until Redux get incorporated
+  const [ isModalOpen, setModalOpen ] = useState(false);
   const [ newUser, setNewUser] = useState(initialNewUser);
+  const [ newPlant, setNewPlant] = useState(initialPlant);
   const [ loggedInUser, setLoggedInUser] = useState(initialLoggedInUser);
   const [ existingUser, setExistingUser] = useState(initialExistingUser);
   const [ plantsList, setPlantsList ] = useState([
@@ -107,6 +116,11 @@ const App = () => {
         ...loggedInUser,
         [e.target.id]: e.target.value
       })
+    } else if(formType === 'add-plant') {
+      setNewPlant({
+        ...newPlant,
+        [e.target.id]: e.target.value
+      })
     }
   }
 
@@ -146,6 +160,11 @@ const App = () => {
     }
   }
 
+  const showModal = (e) => {
+    setModalOpen(!isModalOpen);
+  }
+
+
   return (      
     <Switch>
       <Route 
@@ -172,6 +191,9 @@ const App = () => {
         render={(props) => <Dashboard
           {...props}
           plantsList={plantsList}
+          newPlant={newPlant}
+          isModalOpen={isModalOpen}
+          showModal={showModal}
           loggedInUser={loggedInUser} 
           handleFormSubmit={handleFormSubmit} 
           handleInputChange={handleInputChange} 
