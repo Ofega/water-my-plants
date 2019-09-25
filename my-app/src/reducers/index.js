@@ -93,27 +93,27 @@ export const plantReducer = (state = initialState, action) => {
                             error: "EDIT PLANT FAILED"
 
                         }
-                        case USER_SIGNUP:
-                            console.log("SIGNING YOU UP!")
-                                return{
-                                    ...state,
-                                    requested: true,
-                                    error: false
-                                };
-                                case USER_SIGNUP_SUCCESS:
-                                    console.log("SIGN UP SUCCESSFUL")
-                                    return{
-                                        ...state,
-                                        user: action.payload,
-                                        requested: false
-                                    };
-                                    case USER_SIGNUP_FAILURE:
-                                            console.log("SIGN UP FAILED")
-                                        return{
-                                        ...state,
-                                        requested: false,
-                                        error: "FAILED TO REGISTER"
-                                        };
+            case USER_SIGNUP:
+                console.log("SIGNING YOU UP!")
+                    return{
+                        ...state,
+                        requested: true,
+                        error: false
+                    };
+                    case USER_SIGNUP_SUCCESS:
+                        console.log("SIGN UP SUCCESSFUL")
+                        return{
+                            ...state,
+                            user: action.payload,
+                            requested: false
+                        };
+                        case USER_SIGNUP_FAILURE:
+                                console.log("SIGN UP FAILED")
+                            return{
+                            ...state,
+                            requested: false,
+                            error: "FAILED TO REGISTER"
+                            };
                             case USER_LOGIN:
                                 console.log("LOGGING YOU IN")
                                 return{

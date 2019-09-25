@@ -22,8 +22,8 @@ export const EDIT_PLANT_FAILURE = "EDIT_PLANT_FAILURE"
 
 //add failures
 
-export const userSignUp = (newUser) => (dispatch)=>{
-    dispatch({type: USER_SIGNUP});
+export const userSignUp = (newUser) =>{
+    // dispatch({type: USER_SIGNUP});
     console.log("TESTING")
         axios
         .post("https://nchampag-watermyplants.herokuapp.com/createnewuser", newUser) //this information should be imported from the sign up form. //done
@@ -86,7 +86,7 @@ export const userLogIn = (newUser) => { //WHEN I TRY TO CURRY DISPATCH HERE IT B
         });
 
    };
-
+////////////////ABOVE THIS LINE, TO LOGIN, WORKS////////////////////
 
 
 
@@ -111,20 +111,19 @@ export const getPlant = (userid) => (dispatch) =>{
 }
 
 
-// export const addPlant = (newPlant) => dispatch => { //new plant should come from the newPlant form and the variable it's assigned to.
-//     dispatch({ type: ADD_PLANT});
+export const addPlant = (newPlant) => { //new plant should come from the newPlant form and the variable it's assigned to.
+    // dispatch({ type: ADD_PLANT});
 
-//     return axiosWithAuth()
-//     .post("/plants/plant", newPlant)
-//     .then(res => {
-//         console.log("res inside addPlant", res)
-//         dispatch({
-//             type: ADD_PLANT_SUCCESS,
-//             payload: res.data
-//         })
-//     })
-//     .catch(error => console.log("error inside addPlant actions", error),
-//     // dispatch({type: ADD_PLANT_FAILURE})
-//     )
-// }
-// addPlant(newPlant);
+    return axiosWithAuth()
+    .post("/plants/plant", newPlant)
+    .then(res => {
+        console.log("res inside addPlant", res)
+        // dispatch({
+        //     type: ADD_PLANT_SUCCESS,
+        //     payload: res.data
+        // })
+    })
+    .catch(error => console.log("error inside addPlant actions", error),
+    // dispatch({type: ADD_PLANT_FAILURE})
+    )
+}

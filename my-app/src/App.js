@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import { userSignUp, testFunc, userLogIn } from "./actions";
+import { userSignUp, testFunc, userLogIn, addPlant } from "./actions";
 import Dashboard from "./components/Dashboard";
 import UserForm from "./components/Onboarding/UserForm";
 import Login from "./components/Onboarding/Login";
@@ -128,6 +128,7 @@ const App = () => {
   const handleFormSubmit = (e, formType) => {
     const { username, phonenumber, password } = newUser;
     const { loginUsername, loginPassword } = existingUser;
+    const { species, name, location, schedule } = newPlant;
 
     // Note: Check formType, then check if all form fields are filled under each form type. If they are, then submit. If they are not, html5 form validation will take place.
 
@@ -155,6 +156,18 @@ const App = () => {
         // console.log("existingUser", existingUser);
         // ON SUBMIT, DO WHAT YOU WANT WITH THE EXISTING USER OBJECT HERE :)
         setExistingUser(initialExistingUser);
+
+        //THEN PUSH TO APP DASHBOARD
+      }
+    }else if(formType === 'add-plant') {
+      if(species && name && location && schedule) {
+        e.preventDefault();
+        addPlant(newPlant);
+        console.log("Object made in new plant form", newPlant);
+
+        // console.log("existingUser", existingUser);
+        // ON SUBMIT, DO WHAT YOU WANT WITH THE EXISTING USER OBJECT HERE :)
+        setNewPlant(initialPlant);
 
         //THEN PUSH TO APP DASHBOARD
       }
