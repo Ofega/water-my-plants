@@ -115,7 +115,7 @@ export const addPlant = (newPlant) => { //new plant should come from the newPlan
     // dispatch({ type: ADD_PLANT});
 
     return axiosWithAuth()
-    .post("/plants/plant", newPlant)
+    .post("plants/plant", newPlant)
     .then(res => {
         console.log("res inside addPlant", res)
         // dispatch({
