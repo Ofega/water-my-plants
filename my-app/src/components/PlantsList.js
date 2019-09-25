@@ -43,10 +43,7 @@ const ListContainer = styled.div`
 
     ul {
         list-style: none;
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        flex-wrap: wrap;
+        display: grid
 
         li {
             width: calc(25% - 15px);

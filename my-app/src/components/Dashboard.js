@@ -18,8 +18,8 @@ const Dashboard = props => {
                         Water My plants
                     </h1>
                     <ul>
-                        <li><NavLink activeClassName='selected' exact to="/dashboard">Dashboard</NavLink></li>
-                        <li><NavLink activeClassName='selected' to="/dashboard/edit-profile">Edit Profile</NavLink></li>
+                        <li><NavLink activeClassName='selected' exact to="/">Dashboard</NavLink></li>
+                        <li><NavLink activeClassName='selected' to="/edit-profile">Edit Profile</NavLink></li>
                         <li><button>Logout</button></li>
                     </ul>
                 </div>
@@ -37,7 +37,7 @@ const Dashboard = props => {
             
             <Switch>
                 <Route 
-                    exact path="/dashboard" 
+                    exact path="/" 
                     render={(props) => <PlantsList
                         {...props}
                         plantsList={plantsList}
@@ -45,7 +45,7 @@ const Dashboard = props => {
                 />
 
                 <Route 
-                    path="/dashboard/edit-profile" 
+                    path="/edit-profile" 
                     render={(props) => <EditProfile {...props} />}
                 />
             </Switch>
