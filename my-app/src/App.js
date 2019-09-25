@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Route, Switch } from "react-router-dom";
 import UserForm from "./components/Onboarding/UserForm";
 import Login from "./components/Onboarding/Login";
+import { userSignUp, testFunc, userLogIn } from "./actions"
 import Dashboard from "./components/Dashboard";
 
 const App = () => {
@@ -9,7 +10,7 @@ const App = () => {
   // Empty User Constant
   const initialNewUser = {
     username: '',
-    phone: '',
+    phonenumber: '',
     password: ''
   }
 
@@ -99,28 +100,33 @@ const App = () => {
   }
 
   const handleFormSubmit = (e, formType) => {
-    const { username, phone, password } = newUser;
+    const { username, phonenumber, password } = newUser;
     const { loginUsername, loginPassword } = existingUser;
 
     // Note: Check formType, then check if all form fields are filled under each form type. If they are, then submit. If they are not, html5 form validation will take place.
 
     if(formType === 'register') { 
-      if(username && phone && password) {
+      if(username && phonenumber && password) {
         e.preventDefault();
 
-        console.log(newUser);
-        // ON SUBMIT, DO WHAT YOU WANT WITH THE NEW USER OBJECT HERE :)
-        setNewUser(initialNewUser);
+        console.log("value of newUser inside of handleFormSubmit", newUser);
+        // testFunc(newUser); //testing to see if this is making it back to actions
+        userSignUp(newUser); //this is from actions/lc
 
+        // ON SUBMIT, DO WHAT YOU WANT WITH THE NEW USER OBJECT HERE :)
+        // setNewUser(initialNewUser);
+        setExistingUser(newUser);
         //THEN PUSH TO LOGIN
       }
     } else if(formType === 'login') {
       if(loginUsername && loginPassword) {
         e.preventDefault();
+        userLogIn({username: existingUser.loginUsername, password: existingUser.loginPassword});
+        console.log("Object made in login form",{username: existingUser.loginUsername, password: existingUser.loginPassword});
 
-        console.log(existingUser);
+        // console.log("existingUser", existingUser);
         // ON SUBMIT, DO WHAT YOU WANT WITH THE EXISTING USER OBJECT HERE :)
-        setExistingUser(initialExistingUser);
+        setExistingUser(newUser);
 
         //THEN PUSH TO APP DASHBOARD
       }
