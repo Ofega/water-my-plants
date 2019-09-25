@@ -62,8 +62,9 @@ export const userLogIn = (newUser) => { //WHEN I TRY TO CURRY DISPATCH HERE IT B
           console.log("cat", res);
           localStorage.setItem("token", res.data.access_token);
         //   dispatch({ type: LOGIN_SUCCESS });
+        let plantUser = localStorage.getItem("username");
                 axiosWithAuth()
-                  .get(`plants/userName/${newUser.username}`)
+                  .get(`plants/userName/${plantUser}`)
                   .then(res => {
                       console.log("res inside userName", res)
                     //   (PLANTS HERE ARE INSIDE OF Response.DATA)

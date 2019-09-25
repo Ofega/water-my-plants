@@ -1,20 +1,58 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import notFound from "../img/not-found.svg";
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 //HERE I NEED TO IMPORT AN ACTION CREATOR FROM ACTIONS FILE, DESTRUCTURE PROPS, MIGHT NEED USESTATE TO POPULATE PLANTS UPON
 
-export const PlantsList = props => {
-    const { plantsList } = props;
+// const TestPlant = () =>{
+// const [plantsList, setPlantsList] = useState([]);
+
+
+
+
+// TestPlant();
+
+
+
+
+const PlantsList = () => {
+    // const { plantsList } = props;
+    const plantsList = []
+
+    const [ plant, setPlant] = useState([plantsList]);
+
+
+    useEffect(()=>{
+        axiosWithAuth()
+    .get("plants/plants")
+    .then(res =>{
+        let plantsArray = res.data
+        setPlant(plantsArray);
+        console.log("Plants Array", plantsArray)
+    })
+    .catch(error => 
+        console.log(error))
+    }, [])
+
+    console.log("PLANNNNNNNT!!!",plant)
+
+
+///////
+
+
+
+        
+///////
 
     return (
         <ListContainer>
             {
-                plantsList.length !== 0 ? (
+                plant.length !== 0 ? (
                     <ul>
                         {   
-                            plantsList.map(({ id, species, name, location, schedule }) => {
+                            plant.map(({ id, species, name, location, schedule }) => {
                                 return (
                                     <li key={id}>
                                         <p>Species: <span>{species}</span></p>
@@ -37,19 +75,7 @@ export const PlantsList = props => {
     )
 }
 
-
-const mapStateToProps = state => {
-    return {
-      species: state.plants.species,
-      name: state.plants.name,
-      location: state.plants.location,
-      schedule: state.plants.schedule,
-      user: state.plants.user.user
-    }
-  }
-
-
-export default connect(mapStateToProps, {})(PlantsList)
+export default PlantsList;
 
 
 ////////STYLING/////////

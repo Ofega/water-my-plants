@@ -28,27 +28,28 @@ const AddPlantsForm = props => {
         })
     }
 
-    useEffect(()=>{
-        const username = localStorage.getItem("username");
-        return axios
-        .get(`https://nchampag-watermyplants.herokuapp.com/getuser/${username}`)
-        .then(res=>{
-            console.log("response from useEffect", res)
-            localStorage.setItem("userid", res.data.userid)
-            //returns the whole user obj
-            //save userid and all of the plants to state
-            //take the userid and send with new plant we are creating
-            // const userid = user.userid
-            // localStorage.setItem("userid", userid)
-        })
+    // useEffect(()=>{
+    //     const username = localStorage.getItem("username");
+    //     return axios
+    //     .get(`https://nchampag-watermyplants.herokuapp.com/getuser/${username}`)
+    //     .then(res=>{
+    //         console.log("response from useEffect", res)
+    //         localStorage.setItem("userid", res.data.userid)
+    //         //returns the whole user obj
+    //         //save userid and all of the plants to state
+    //         //take the userid and send with new plant we are creating
+    //         // const userid = user.userid
+    //         // localStorage.setItem("userid", userid)
+    //     })
 
-    }, [])
+    // }, [])
 
 
     const handleFormSubmit = (e) => {
         
         if(species && name && location && schedule) {
-            e.preventDefault();
+            // e.preventDefault();
+            
             // console.log("value of newPlant inside of handleFormSubmit", newPlant);
             // testFunc(newUser); //testing to see if this is making it back to actions
             // ON SUBMIT, DO WHAT YOU WANT WITH THE NEW USER OBJECT HERE :)
@@ -63,8 +64,8 @@ const AddPlantsForm = props => {
     }
 
     const addPlant = (plantTest) => { //new plant should come from the newPlant form and the variable it's assigned to.
-    console.log("testtoken", localStorage.getItem("token"))
-    console.log(plantTest)
+    // console.log("testtoken", localStorage.getItem("token"))
+    // console.log(plantTest)
     return axiosWithAuth()
     .post("plants/plant", plantTest)
     .then(res => {
