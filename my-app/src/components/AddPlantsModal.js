@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from "styled-components";
-import { AddPlantsForm } from './Forms';
+import AddPlantsForm from './Forms/AddPlantsForm';
 
 
 const AddPlantsModal = props => {
 
-  const { isModalOpen, showModal, newPlant, handleInputChange, handleFormSubmit } = props;
+  const { isModalOpen, showModal } = props;
 
   return (
     isModalOpen ? (
@@ -13,9 +13,6 @@ const AddPlantsModal = props => {
         <div className="hero-background"></div>
         <AddPlantsForm 
           showModal={showModal}
-          newPlant={newPlant}
-          handleInputChange={handleInputChange}
-          handleFormSubmit={handleFormSubmit}
         />
       </MainContainer>
     ) : null

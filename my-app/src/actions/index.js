@@ -31,9 +31,6 @@ export const userSignUp = (newUser) =>{
         .then(res=>{
             console.log("res inside of userSignUp",res)
             localStorage.setItem("token", res.data.token); //shows in application console
-            localStorage.setItem("username", res.data.username); //might not need "user" here
-            localStorage.setItem("password", res.data.password);
-            localStorage.setItem("phonenumber", res.data.phonenumber);
             // props.history.push("/login"); //
             // dispatch({
             //   type: USER_SIGNUP_SUCCESS
@@ -113,19 +110,13 @@ export const getPlant = (userid) => (dispatch) =>{
 
 
 
-export const addPlant = (newPlant) => { //new plant should come from the newPlant form and the variable it's assigned to.
-    // dispatch({ type: ADD_PLANT});
+// export const addPlant = (newPlant) => { //new plant should come from the newPlant form and the variable it's assigned to.
 
-    return axiosWithAuth()
-    .post("plants/plant", newPlant)
-    .then(res => {
-        console.log("res inside addPlant", res)
-        // dispatch({
-        //     type: ADD_PLANT_SUCCESS,
-        //     payload: res.data
-        // })
-    })
-    .catch(error => console.log("error inside addPlant actions", error),
-    // dispatch({type: ADD_PLANT_FAILURE})
-    )
-}
+//     return axiosWithAuth()
+//     .post("plants/plant", newPlant)
+//     .then(res => {
+//         console.log("res inside addPlant", res)
+//     })
+//     .catch(error => console.log("error inside addPlant actions", error),
+//     )
+// }
