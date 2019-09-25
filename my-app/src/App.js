@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Route, Switch } from "react-router-dom";
+import { userSignUp, testFunc, userLogIn } from "./actions";
+import Dashboard from "./components/Dashboard";
 import UserForm from "./components/Onboarding/UserForm";
 import Login from "./components/Onboarding/Login";
-import { userSignUp, testFunc, userLogIn } from "./actions"
-import Dashboard from "./components/Dashboard";
+
 
 const App = () => {
 
@@ -19,20 +20,39 @@ const App = () => {
     loginPassword: ''
   }
 
-  const mockPlantData = [
+  const initialLoggedInUser = {
+    username: 'Smithy',
+    phonenumber: '08101149643',
+    password: 'Qwerty'
+  }
+
+  const initialPlant = {
+    species: '',
+    name: '',
+    location: '',
+    schedule: '',
+  }
+
+ // Initial State for now. Until Redux get incorporated
+  const [ isModalOpen, setModalOpen ] = useState(false);
+  const [ newUser, setNewUser] = useState(initialNewUser);
+  const [ newPlant, setNewPlant] = useState(initialPlant);
+  const [ loggedInUser, setLoggedInUser] = useState(initialLoggedInUser);
+  const [ existingUser, setExistingUser] = useState(initialExistingUser);
+  const [ plantsList, setPlantsList ] = useState([
     {
-    id: 1,
-    species: 'Lucky Bamboo1',
-    name: 'Bambi',
-    location: 'Kitchen',
-    schedule: 4,
+      id: 1,
+      species: 'Lucky Bamboo1',
+      name: 'Bambi',
+      location: 'Kitchen',
+      schedule: 4,
     },
     {
       id: 2,
       species: 'Lucky Bamboo1',
       name: 'Bambi',
       location: 'Kitchen',
-      schedule: 4,
+      schedule: 1,
     },
     {
       id: 3,
@@ -76,12 +96,7 @@ const App = () => {
       location: 'Kitchen',
       schedule: 4,
     }
-  ]
-
- // Initial State for now. Until Redux get incorporated
-  const [ newUser, setNewUser] = useState(initialNewUser);
-  const [ existingUser, setExistingUser] = useState(initialExistingUser);
-  const [ plantsList, setPlantsList ] = useState([]);
+  ])
 
 
   // Handler Functions
@@ -94,6 +109,16 @@ const App = () => {
     } else if(formType === 'login') {
       setExistingUser({
         ...existingUser,
+        [e.target.id]: e.target.value
+      })
+    } else if(formType === 'edit-profile') {
+      setLoggedInUser({
+        ...loggedInUser,
+        [e.target.id]: e.target.value
+      })
+    } else if(formType === 'add-plant') {
+      setNewPlant({
+        ...newPlant,
         [e.target.id]: e.target.value
       })
     }
@@ -114,8 +139,10 @@ const App = () => {
         userSignUp(newUser); //this is from actions/lc
 
         // ON SUBMIT, DO WHAT YOU WANT WITH THE NEW USER OBJECT HERE :)
-        // setNewUser(initialNewUser);
+        
         setExistingUser(newUser);
+        setNewUser(initialNewUser);
+
         //THEN PUSH TO LOGIN
       }
     } else if(formType === 'login') {
@@ -126,18 +153,23 @@ const App = () => {
 
         // console.log("existingUser", existingUser);
         // ON SUBMIT, DO WHAT YOU WANT WITH THE EXISTING USER OBJECT HERE :)
-        setExistingUser(newUser);
+        setExistingUser(initialExistingUser);
 
         //THEN PUSH TO APP DASHBOARD
       }
     }
   }
 
-  return (
+  const showModal = (e) => {
+    setModalOpen(!isModalOpen);
+  }
+
+
+  return (      
     <Switch>
       <Route 
         exact 
-        path="/" 
+        path="/register" 
         render={(props) => <UserForm {...props} 
           newUser={newUser} 
           handleFormSubmit={handleFormSubmit} 
@@ -155,10 +187,16 @@ const App = () => {
       />
 
       <Route 
-        path="/dashboard" 
-        render={(props) => <Dashboard 
+        path="/" 
+        render={(props) => <Dashboard
           {...props}
           plantsList={plantsList}
+          newPlant={newPlant}
+          isModalOpen={isModalOpen}
+          showModal={showModal}
+          loggedInUser={loggedInUser} 
+          handleFormSubmit={handleFormSubmit} 
+          handleInputChange={handleInputChange} 
         />}
       />
     </Switch>

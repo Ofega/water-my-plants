@@ -35,8 +35,8 @@ export const userSignUp = (newUser) =>{
             localStorage.setItem("phonenumber", res.data.phonenumber);
             // props.history.push("/login"); //
             // dispatch({
-            //     type: USER_SIGNUP_SUCCESS
-            //   });
+            //   type: USER_SIGNUP_SUCCESS
+            // });
         })
         .catch(error => console.log("error FROM USERSIGNUP inside actions", error),
         // dispatch({type: USER_SIGNUP_FAILURE})
@@ -101,7 +101,7 @@ export const userLogIn = (newUser) => {
                       console.log("res inside userName", res)
                     //   (PLANTS HERE ARE INSIDE OF Response.DATA)
                     // dispatch({type: GOT_PLANTS, payload: res.data})
-                    // history.push('/plantList')
+                    // history.push('/dashboard')
                 })
                   })
                 //   .catch(err => 
@@ -142,20 +142,20 @@ export const getPlant = (userid) => (dispatch) =>{
 }
 
 
-export const addPlant = (newPlant) => dispatch => { //new plant should come from the newPlant form and the variable it's assigned to.
-    dispatch({ type: ADD_PLANT});
+// export const addPlant = (newPlant) => dispatch => { //new plant should come from the newPlant form and the variable it's assigned to.
+//     dispatch({ type: ADD_PLANT});
 
-    return axiosWithAuth()
-    .post("/plants/plant", newPlant)
-    .then(res => {
-        console.log("res inside addPlant", res)
-        dispatch({
-            type: ADD_PLANT_SUCCESS,
-            payload: res.data
-        })
-    })
-    .catch(error => console.log("error inside addPlant actions", error),
-    // dispatch({type: ADD_PLANT_FAILURE})
-    )
-}
-addPlant(newPlant);
+//     return axiosWithAuth()
+//     .post("/plants/plant", newPlant)
+//     .then(res => {
+//         console.log("res inside addPlant", res)
+//         dispatch({
+//             type: ADD_PLANT_SUCCESS,
+//             payload: res.data
+//         })
+//     })
+//     .catch(error => console.log("error inside addPlant actions", error),
+//     // dispatch({type: ADD_PLANT_FAILURE})
+//     )
+// }
+// addPlant(newPlant);
