@@ -35,4 +35,5 @@ const MainContainer = styled.div`
     justify-content: center;
     height: 100%;
     z-index: 1000;
+    padding: 2rem;
 `
