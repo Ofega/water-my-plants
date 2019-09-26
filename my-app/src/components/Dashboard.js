@@ -3,7 +3,7 @@ import { Route, Switch, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import onboardingBG from '../img/onboarding-bg.jpg';
 import logo from '../img/logo.jpg';
-import  PlantsList from "./PlantsList";
+import  PlantsList  from "./PlantsList";
 import EditProfile from './EditProfile';
 import AddPlantsModal from './AddPlantsModal';
 
@@ -12,7 +12,7 @@ import AddPlantsModal from './AddPlantsModal';
 
 const Dashboard = props => {
 
-    const { plants, addPlant, currentUser, currentUserID, isModalOpen, showModal } = props;
+    const { plants, addPlant, deletePlant, currentUser, currentUserID, isModalOpen, showModal } = props;
 
     return (
         <MainContainer>
@@ -32,7 +32,7 @@ const Dashboard = props => {
             <header>
                 <img src={onboardingBG} alt="Header Background" />
                 <div className="header-content">
-                    <h1>Welcome Smithy!</h1>
+                    <h1>Welcome {currentUser}!</h1>
                     
                     <button onClick={showModal}>
                         +
@@ -47,6 +47,7 @@ const Dashboard = props => {
                     render={(props) => <PlantsList
                         {...props}
                         plants={plants}
+                        deletePlant={deletePlant}
                     />}
                 />
 

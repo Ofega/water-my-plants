@@ -3,10 +3,9 @@ import styled from "styled-components";
 import notFound from "../img/not-found.svg";
 
 
-
 const PlantsList = props => {
-    const { plants } = props;
-
+    const { plants, deletePlant } = props;
+    
     return (
         <ListContainer>
             {
@@ -20,6 +19,7 @@ const PlantsList = props => {
                                         <p>Name: <span>{name}</span></p>
                                         <p>Location: <span>{location}</span></p>
                                         <p>Schedule: <span>{schedule > 1 ? `${schedule} times` : 'Once'} a week</span></p>
+                                        <p className="deleteButton" onClick={()=>{deletePlant(plantid, { plantid, species, name, location, schedule })}}> DELETE </p>
                                     </li>
                                 )
                             })

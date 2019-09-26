@@ -59,6 +59,18 @@ const App = () => {
     )
   }
 
+  const deletePlant = (plantid, plantObj) =>{
+    axiosWithAuth()
+      .delete(`plants/plant/${plantid}`)
+      .then(res => {
+        console.log(res)
+        setNewPlant(plantObj);
+      })
+      .catch(error=>{
+          console.log("error in delete", error)
+      })
+  }
+
   // Handler Functions
   const showModal = (e) => {
     setModalOpen(!isModalOpen);
@@ -85,6 +97,7 @@ const App = () => {
               {...props}
               plants={plants}
               addPlant={addPlant}
+              deletePlant={deletePlant}
               currentUser={currentUser}
               currentUserID={currentUserID}
               isModalOpen={isModalOpen}
