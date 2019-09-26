@@ -5,6 +5,7 @@ import axios from "axios";
 
 
 const RegisterForm = () => {
+const [toLogin, setToLogin] = useState(false);
 
     const userSignUp = (newUser) =>{
         console.log("ANOTHER TEST")
@@ -15,10 +16,7 @@ const RegisterForm = () => {
               .then(res=>{
                   console.log("res inside of userSignUp",res)
                   localStorage.setItem("token", res.data.token); //shows in application console
-                  // props.history.push("/login"); //
-                  // dispatch({
-                  //   type: USER_SIGNUP_SUCCESS
-                  // });
+                  
               })
               .catch(error => console.log("error FROM USERSIGNUP inside actions", error),
                ); 
@@ -81,9 +79,9 @@ const RegisterForm = () => {
                 <input type='password' id="password" name='password' onChange={handleInputChange} value={password} placeholder='Password' required/>
             </div>
 
-            <button type='submit' onClick={handleFormSubmit}>
+            <Link to="/login"><button type='submit' onClick={handleFormSubmit}>
                 Register
-            </button>
+            </button></Link>
 
             <p className="text-link">Already a member, <Link to="/login">Login here</Link></p>
         </Form>

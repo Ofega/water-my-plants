@@ -44,9 +44,7 @@ const AddPlantsForm = props => {
             setNewPlant(plantTest);
             showModal();
             // console.log("plantTest", plantTest, "newPlant", newPlant)
-            addPlant(plantTest)
-            document.location.reload(true);
-            
+            addPlant(plantTest)            
         }
     }
 

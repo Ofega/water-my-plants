@@ -16,7 +16,7 @@ const LoginForm = () => {
     const { loginUsername, loginPassword } = existingUser;
 //Function
 
-const userLogIn = (newUser) => { //WHEN I TRY TO CURRY DISPATCH HERE IT BREAKS THE CODE
+const userLogIn = (newUser) => { 
     
       axios
         .post(
