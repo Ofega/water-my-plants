@@ -76,7 +76,7 @@ const App = () => {
   return (      
     <Switch>
       <Route 
-        exact 
+ 
         path="/register" 
         render={(props) => <UserForm {...props} />}
       />
@@ -87,7 +87,7 @@ const App = () => {
       />
 
       <Route 
-        path="/" 
+        exact path="/" 
         render={(props) => <Dashboard
           {...props}
           // plantsList={plantsList}

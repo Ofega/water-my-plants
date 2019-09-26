@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form } from './Styles';
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 
 
@@ -79,9 +79,9 @@ const [toLogin, setToLogin] = useState(false);
                 <input type='password' id="password" name='password' onChange={handleInputChange} value={password} placeholder='Password' required/>
             </div>
 
-            <Link to="/login"><button type='submit' onClick={handleFormSubmit}>
-                Register
-            </button></Link>
+            <button to="/login" type='submit' onClick={handleFormSubmit}>
+                <Link to="/login">Register</Link>
+            </button>
 
             <p className="text-link">Already a member, <Link to="/login">Login here</Link></p>
         </Form>

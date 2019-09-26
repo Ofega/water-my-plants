@@ -90,7 +90,7 @@ const userLogIn = (newUser) => {
             </div>
 
             <button type='submit' onClick={handleFormSubmit}>
-                Login
+                <Link to="/">Login</Link>
             </button>
 
             <p className="text-link">Not a member yet? <Link to="/register">Register here</Link></p>
