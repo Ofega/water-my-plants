@@ -1,0 +1,7 @@
+{
+  "name": "Water my Plants",
+  "short_name": "Water my Plants",
+  "start_url": "/",
+  "display": "standalone",
+  "gcm_sender_id": "519659307484"
+}
