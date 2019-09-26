@@ -5,7 +5,7 @@ import axios from "axios";
 
 const LoginForm = props => {
 
-    const { addCurrentUser, toggleAuthentication, addToken, notify, history } = props
+    const { addCurrentUser, toggleAuthentication, addToken, notify, toggleLoading, history } = props
 
     const initialExistingUser = {
         loginUsername: '',
@@ -29,7 +29,8 @@ const LoginForm = props => {
                 }
             )
             .then(res => { 
-                addToken(res.data.access_token); 
+                addToken(res.data.access_token);
+                toggleLoading(false); 
                 toggleAuthentication();
                 history.push('/');
             })
@@ -50,6 +51,7 @@ const LoginForm = props => {
     const handleFormSubmit = (e) => {
         if(loginUsername && loginPassword) {
             e.preventDefault();
+            toggleLoading(true);
             addCurrentUser(loginUsername)
 
             userLogIn(existingUser);

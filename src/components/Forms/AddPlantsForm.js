@@ -3,7 +3,7 @@ import { Form } from './Styles';
 
 
 const AddPlantsForm = props => {
-    const { showModal, addPlant, currentUserID } = props;
+    const { showModal, toggleLoading, addPlant, currentUserID } = props;
 
     const initialPlant = {
         "species": '',
@@ -29,9 +29,10 @@ const AddPlantsForm = props => {
     const handleFormSubmit = (e) => {
         if(species && name && location && schedule) {
             e.preventDefault();
+            toggleLoading(true);
             addPlant({...newPlant, schedule: parseInt(newPlant.schedule)});
             setNewPlant(initialPlant);
-            showModal();
+            showModal(e);
         }
     }
 

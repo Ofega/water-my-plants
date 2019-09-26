@@ -6,12 +6,13 @@ import axios from "axios";
 
 const RegisterForm = props => {
 
-    const { history, notify } = props;
+    const { history, notify, toggleLoading } = props;
 
     const userSignUp = (newUser) =>{
         axios
             .post("https://nchampag-watermyplants.herokuapp.com/createnewuser", newUser)
             .then(res => {
+                toggleLoading(false);
                 history.push('/login')
             })
             .catch(error => notify('Unsuccessful! Try Again', 'error'));    
@@ -37,6 +38,7 @@ const RegisterForm = props => {
     const handleFormSubmit = (e) => {    
         if(username && phonenumber && password) {
             e.preventDefault();
+            toggleLoading(true);
             userSignUp(newUser);
             setNewUser(initialNewUser);
         }
