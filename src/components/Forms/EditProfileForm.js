@@ -24,7 +24,6 @@ const EditProfileForm = () => {
 
     let userid = parseInt(localStorage.getItem("userid"));
 
-// console.log(typeof(userid))
  const updateProfile = (userid) =>{
         axiosWithAuth()
             .put(`user/${userid}`, profileInfo )

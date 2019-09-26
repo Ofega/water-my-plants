@@ -12,7 +12,16 @@ import AddPlantsModal from './AddPlantsModal';
 
 const Dashboard = props => {
 
-    const { plants, addPlant, deletePlant, toggleAuthentication, currentUser, currentUserID, isModalOpen, showModal } = props;
+    const { 
+        plants, 
+        addPlant, 
+        deletePlant, 
+        toggleAuthentication, 
+        currentUser, 
+        currentUserID, 
+        isModalOpen, 
+        showModal 
+    } = props;
 
     return (
         <MainContainer>
@@ -39,7 +48,13 @@ const Dashboard = props => {
                     </button>
                 </div>
             </header>
-            <AddPlantsModal isModalOpen={isModalOpen} currentUser={currentUser} currentUserID={currentUserID} addPlant={addPlant} showModal={showModal} />
+            <AddPlantsModal 
+                isModalOpen={isModalOpen} 
+                currentUser={currentUser} 
+                currentUserID={currentUserID} 
+                addPlant={addPlant} 
+                showModal={showModal} 
+            />
             
             <Switch>
                 <Route 

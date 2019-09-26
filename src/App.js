@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Route, Switch, Redirect } from "react-router-dom";
 import { axiosWithAuth } from './utils/axiosWithAuth';
 import { useLocalStorage } from './components/CustomHooks';
-import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 import Dashboard from "./components/Dashboard";
 import UserForm from "./components/Onboarding/UserForm";
 import Login from "./components/Onboarding/Login";
 
+import axios from "axios";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const App = () => {
@@ -32,6 +34,12 @@ const App = () => {
     setIsAuthenticated(!isAuthenticated)
   }
 
+  const notify = (msg, type) => {
+    toast[`${type}`](msg, {
+      position: "top-right"
+    });
+  }
+
   useEffect(() => {
     if(currentUser !== '') {
       axios
@@ -45,11 +53,9 @@ const App = () => {
 
   useEffect(() => {
     if(newPlant !== null) {
-      console.log('Yaaay')
       axios
         .get(`https://nchampag-watermyplants.herokuapp.com/getuser/${currentUser}`)
         .then(res => {
-          console.log(res.data.plants)
           setPlants(res.data.plants);
         })
     }
@@ -61,21 +67,19 @@ const App = () => {
       .post("plants/plant", newPlantObj)
       .then(res => {
         setNewPlant(res.data);
+        notify('New Plant Added', 'success')
       })
-      .catch(error => console.log("error inside addPlant actions", error)
-    )
+      .catch(err => notify('Unsuccessful! Try Again', 'error'))
   }
 
   const deletePlant = (plantid, plantObj) =>{
     axiosWithAuth()
       .delete(`plants/plant/${plantid}`)
       .then(res => {
-        console.log(res)
         setNewPlant(plantObj);
+        notify('Plant Deleted', 'success')
       })
-      .catch(error=>{
-          console.log("error in delete", error)
-      })
+      .catch(err => notify('Unsuccessful! Try Again', 'error'))
   }
 
   // Handler Functions
@@ -83,42 +87,47 @@ const App = () => {
     setModalOpen(!isModalOpen);
   }
 
-  return (      
-    <Switch>
-      <Route 
-        path="/register" 
-        render={(props) => <UserForm {...props} />}
-      />
-
-      <Route 
-        path="/login" 
-        render={(props) => <Login 
-          addToken={addToken} 
-          toggleAuthentication={toggleAuthentication} 
-          addCurrentUser={addCurrentUser} 
-          currentUser={currentUser} {...props} 
-        />}
-      />
-
-      <Route path="/" render={
-            props => isAuthenticated ? (
-                <Dashboard
-                  {...props}
-                  plants={plants}
-                  addPlant={addPlant}
-                  deletePlant={deletePlant}
-                  currentUser={currentUser}
-                  currentUserID={currentUserID}
-                  isModalOpen={isModalOpen}
-                  showModal={showModal}
-                  toggleAuthentication={toggleAuthentication}
-                />
-              ) : (
-                <Redirect to={{ pathname: "/login" }} />
-              )
-          }
+  return (   
+    <>   
+      <Switch>
+        <Route 
+          path="/register" 
+          render={(props) => <UserForm notify={notify} {...props} />}
         />
-    </Switch>
+
+        <Route 
+          path="/login" 
+          render={(props) => <Login 
+            notify={notify}
+            addToken={addToken} 
+            toggleAuthentication={toggleAuthentication} 
+            addCurrentUser={addCurrentUser} 
+            currentUser={currentUser} {...props} 
+          />}
+        />
+
+        <Route path="/" render={
+              props => isAuthenticated ? (
+                  <Dashboard
+                    {...props}
+                    notify={notify}
+                    plants={plants}
+                    addPlant={addPlant}
+                    deletePlant={deletePlant}
+                    currentUser={currentUser}
+                    currentUserID={currentUserID}
+                    isModalOpen={isModalOpen}
+                    showModal={showModal}
+                    toggleAuthentication={toggleAuthentication}
+                  />
+                ) : (
+                  <Redirect to={{ pathname: "/login" }} />
+                )
+            }
+          />
+      </Switch>
+      <ToastContainer />
+    </>
   );
 }
 
