@@ -3,18 +3,12 @@ import { Onboarding } from './Styles';
 import LoginForm from '../Forms/LoginForm';
 
 
-const Login = props => {
-
-  const { existingUser, handleInputChange, handleFormSubmit } = props;
+const Login = () => {
 
   return (
     <Onboarding>
       <div className="hero-background"></div>
-      <LoginForm 
-        existingUser={existingUser}
-        handleInputChange={handleInputChange}
-        handleFormSubmit={handleFormSubmit}
-      />
+      <LoginForm />
     </Onboarding>
   );
 };

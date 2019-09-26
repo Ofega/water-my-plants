@@ -5,9 +5,10 @@ import UserForm from "./components/Onboarding/UserForm";
 import Login from "./components/Onboarding/Login";
 
 
+
 const App = () => {
 
-  // Initial State for now. Until Redux get incorporated
+  // Initial State for now. Until Redux get incorporated;
   const [ isModalOpen, setModalOpen ] = useState(false);
   const [ plantsList ] = useState([
     {
@@ -88,12 +89,15 @@ const App = () => {
 
       <Route 
         path="/" 
-        render={(props) => <Dashboard
-          {...props}
-          plantsList={plantsList}
-          isModalOpen={isModalOpen}
-          showModal={showModal}
-        />}
+        render={
+          (props) => 
+            <Dashboard
+              {...props}
+              plantsList={plantsList}
+              isModalOpen={isModalOpen}
+              showModal={showModal}
+            />
+        }
       />
     </Switch>
   );

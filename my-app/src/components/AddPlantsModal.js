@@ -8,14 +8,14 @@ const AddPlantsModal = props => {
   const { isModalOpen, showModal } = props;
 
   return (
-    isModalOpen ? (
+    isModalOpen && (
       <MainContainer>
         <div className="hero-background"></div>
         <AddPlantsForm 
           showModal={showModal}
         />
       </MainContainer>
-    ) : null
+    )
   );
 };
 
