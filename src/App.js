@@ -60,7 +60,10 @@ const App = ({ location }) => {
         toggleLoading(false);
         notify('New Plant Added', 'success')
       })
-      .catch(err => notify('Unsuccessful! Try Again', 'error'))
+      .catch(err => {
+        toggleLoading(false); 
+        notify('Unsuccessful! Try Again', 'error')
+      })
   }
 
   const deletePlant = (plantid, plantObj) => {
@@ -72,7 +75,10 @@ const App = ({ location }) => {
         toggleLoading(false);
         notify('Plant Deleted', 'success')
       })
-      .catch(err => notify('Unsuccessful! Try Again', 'error'))
+      .catch(err => {
+        toggleLoading(false); 
+        notify('Unsuccessful! Try Again', 'error')
+      })
   }
 
 
@@ -85,7 +91,10 @@ const App = ({ location }) => {
           setPlants(res.data.plants);
           toggleLoading(false);
         })
-        .catch(err => notify('Unsuccessful! Refresh page', 'error'))
+        .catch(err => {
+          toggleLoading(false); 
+          notify('Unsuccessful! Refresh page', 'error')
+        })
     }
   }, [currentUser, newPlant])
 
@@ -156,24 +165,24 @@ export default withRouter(App);
 
 const Wrapper = styled.div`
   .scale-enter {
-    transform: translateY(-10px);
-    opacity: 0.7;
+    transform: translateY(-20px);
+    // opacity: 0.7;
 
     &.scale-enter-active {
       transform: translateY(0);
-      opacity: 1;
-      transition: all 1s ease-in;
+      // opacity: 1;
+      transition: all .5s ease-in;
     }
   }
 
   .scale-exit {
-    transform: translateY(-10px);
-    opacity: 0.5;
+    transform: translateY(-20px);
+    // opacity: 0.7;
 
     &.scale-exit-active {
       transform: translateY(0);
-      opacity: 1;
-      transition: all 1s ease-in;
+      // opacity: 1;
+      transition: all .5s ease-in;
     }
   }
 `

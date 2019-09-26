@@ -15,7 +15,10 @@ const RegisterForm = props => {
                 toggleLoading(false);
                 history.push('/login')
             })
-            .catch(error => notify('Unsuccessful! Try Again', 'error'));    
+            .catch(error => {
+                toggleLoading(false); 
+                notify('Unsuccessful! Try Again', 'error')
+            });    
     } 
 
     const initialNewUser = {

@@ -349,6 +349,7 @@ const MainContainer = styled.div`
 
     header {
         height: 27vh;
+        background: rgba(0, 0, 0, .5);
         position: relative;
         display: flex;
         flex-direction: column;
