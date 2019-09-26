@@ -3,18 +3,12 @@ import styled from "styled-components";
 import EditProfileForm from './Forms/EditProfileForm';
 
 
-const EditProfile = props => {
-
-  const { loggedInUser, handleInputChange, handleFormSubmit } = props;
+const EditProfile = () => {
 
   return (
     <MainContainer>
       <div className="hero-background"></div>
-      <EditProfileForm 
-        loggedInUser={loggedInUser}
-        handleInputChange={handleInputChange}
-        handleFormSubmit={handleFormSubmit}
-      />
+      <EditProfileForm />
     </MainContainer>
   );
 };
