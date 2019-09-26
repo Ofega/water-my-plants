@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import onboardingBG from '../img/onboarding-bg.jpg';
@@ -11,6 +11,12 @@ import AddPlantsModal from './AddPlantsModal';
 
 
 const Dashboard = props => {
+
+    const [ isOpen, setIsOpen ] = useState(false);
+
+    const toggleNav = () => {
+        setIsOpen(!isOpen);
+    }
 
     const { 
         plants, 
@@ -31,17 +37,25 @@ const Dashboard = props => {
                         Water My plants
                         <span><img src={logo} alt="Water my plants logo" /></span>
                     </h1>
-                    <ul>
-                        <li><NavLink activeClassName='selected' exact to="/">Dashboard</NavLink></li>
-                        <li><NavLink activeClassName='selected' to="/edit-profile">Edit Profile</NavLink></li>
-                        <li><button onClick={toggleAuthentication}>Logout</button></li>
+                    <ul className={isOpen ? 'open' : null}>
+                        <li onClick={toggleNav}><NavLink activeClassName='selected' exact to="/">Dashboard</NavLink></li>
+                        <li onClick={toggleNav}><NavLink activeClassName='selected' to="/edit-profile">Edit Profile</NavLink></li>
+                        <li onClick={toggleNav}><button onClick={toggleAuthentication}>Logout</button></li>
                     </ul>
+                    <button className={isOpen ? 'open responsive-nav' : 'responsive-nav'} onClick={toggleNav}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
                 </div>
             </nav>
             <header>
                 <img src={onboardingBG} alt="Header Background" />
                 <div className="header-content">
-                    <h1>Welcome {currentUser}!</h1>
+                    <h1>Welcome {currentUser[0].toUpperCase() + currentUser.slice(1)}!</h1>
                     
                     <button onClick={showModal}>
                         +
@@ -77,7 +91,6 @@ const Dashboard = props => {
 
 export default Dashboard;
 
-
 const MainContainer = styled.div`
     min-height: 100vh;
 
@@ -97,6 +110,7 @@ const MainContainer = styled.div`
             justify-content: space-between;
             min-height: 40px;
             padding: 0 2rem;
+            position: relative;
 
             .logo {
                 max-width: 270px;
@@ -119,16 +133,19 @@ const MainContainer = styled.div`
             }
 
             ul {
+                display: none;
                 list-style-type: none;
-                display: flex;
                 width: calc(100% - 200px);
-                position: relative
+                position: relative;
+                flex-direction: row;
+                top: 0;
+                position: static;
 
-                li {
+                li {  
+                    width: auto;
                     padding: 0 2rem;
 
                     a, button {
-                        display: inline-block;
                         padding: 2rem 0;
                         font-size: 1.4rem;
                         color: rgba(0, 0, 0, .6);
@@ -137,22 +154,189 @@ const MainContainer = styled.div`
                         background: none;
                         border: none;
                         outline: none;
+                        border-bottom: none;
+                        display: inline-block;
 
                         &.selected {
                             border-bottom: 3px solid #419BA0;
                             color: #419BA0;
                             font-weight: 600;
                         }
-
-                        &:hover {
-                            color: #419BA0;
-                        }
                     }
-
+                        
                     &:last-of-type {
                         position: absolute;
                         right: 0;
                         padding-right: 0;
+
+                        button {
+                            padding-right: 2rem;
+                        }
+                    }
+                }
+
+                @media (min-width: 768px) {
+                    display: flex;
+                }
+
+                @media (max-width: 768px){
+                    &.open {
+                        display: flex;
+                        position: absolute;
+                        background: white;
+                        flex-direction: column;
+                        top: 60px;
+                        right: 0;
+                        width: 100%;
+                        text-align: end;
+                        max-width: 320px;
+                        border-radius: 5px;
+                        margin-right: 1rem;
+                        border: 1px solid #ddd;
+
+                        &:before  {
+                            content: ' ';
+                            position: absolute;
+                            border: solid 15px transparent;
+                            border-top: solid 0px transparent;
+                            border-width: 14px;
+                            border-color: #fff transparent transparent transparent;
+                            right: .8rem;
+                            transform: rotate(180deg);
+                            top: -28px;
+                        }
+    
+                        li {
+                            width: 100%;
+        
+                            a, button {
+                                width: 100%;
+                                border-bottom: 1px solid #ddd;
+        
+                                &.selected {
+                                    border-bottom: 1px solid #419BA0;
+                                    color: #419BA0;
+                                    font-weight: 600;
+                                }
+        
+                                &:hover {
+                                    color: #419BA0;
+                                }
+                            }
+        
+                            &:last-of-type {
+                                position: static;
+    
+                                button {
+                                    width: 100%;
+                                    text-align: right;
+                                    border-bottom: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .responsive-nav {
+                display: block;
+                background: transparent;
+                min-width: inherit;
+                position: relative;
+                min-height: 0;
+                height: 20px;
+                width: 25px;
+                border: none;
+                outline: none;
+            
+                @media (min-width: 768px) {
+                    display: none;
+                }
+            
+                span {
+                    display: block;
+                    position: absolute;
+                    height: 2.5px;
+                    width: 50%;
+                    background: #000;
+                    opacity: 1;
+                    -webkit-transform: rotate(0deg);
+                    -moz-transform: rotate(0deg);
+                    -o-transform: rotate(0deg);
+                    transform: rotate(0deg);
+                    -webkit-transition: .25s ease-in-out;
+                    -moz-transition: .25s ease-in-out;
+                    -o-transition: .25s ease-in-out;
+                    transition: .25s ease-in-out;
+            
+                    &:nth-child(even) {
+                        left: 50%;
+                        border-radius: 0 9px 9px 0;
+                    }
+            
+                    &:nth-child(odd) {
+                        left:0px;
+                        border-radius: 9px 0 0 9px;
+                    }
+            
+                    &:nth-child(1), &:nth-child(2) {
+                        top: 0px;
+                    }
+            
+                    &:nth-child(3), &:nth-child(4) {
+                        top: 8px;
+                    }
+            
+                    &:nth-child(5), &:nth-child(6) {
+                        top: 16px;
+                    }
+                }
+            
+                &.open {
+                    span {
+                        &:nth-child(1), &:nth-child(6) {
+                            -webkit-transform: rotate(45deg);
+                            -moz-transform: rotate(45deg);
+                            -o-transform: rotate(45deg);
+                            transform: rotate(45deg);
+                        }
+            
+                        &:nth-child(2), &:nth-child(5) {
+                            -webkit-transform: rotate(-45deg);
+                            -moz-transform: rotate(-45deg);
+                            -o-transform: rotate(-45deg);
+                            transform: rotate(-45deg);
+                        }
+            
+                        &:nth-child(1) {
+                            left: 3px;
+                            top: 3px;
+                        }
+                    
+                        &:nth-child(2) {
+                            right: 3px;
+                            top: 3px;
+                        }
+                    
+                        &:nth-child(3) {
+                            left: -50%;
+                            opacity: 0;
+                        }
+                    
+                        &:nth-child(4) {
+                            left: 100%;
+                            opacity: 0;
+                        }
+                    
+                        &:nth-child(5) {
+                            left: 3px;
+                            bottom: 3px;
+                        }
+                    
+                        &:nth-child(6) {
+                            right: 3px;
+                            bottom: 3px;
+                        }
                     }
                 }
             }

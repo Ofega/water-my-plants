@@ -8,6 +8,7 @@ export const Onboarding = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 2rem;
 
   &:before {
     content: '';
@@ -27,6 +28,10 @@ export const Onboarding = styled.main`
     position: fixed;
     height: 100%;
     width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background-size: cover;
     background-position: 50% 50%;
     background-repeat: no-repeat;

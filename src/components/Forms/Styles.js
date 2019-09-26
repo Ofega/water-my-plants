@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Form = styled.form`
-    padding: 4rem 3rem;
+    padding: 4rem 2rem;
     min-height: 350px;
     max-width: 500px;
     width: 100%;
@@ -13,6 +13,10 @@ export const Form = styled.form`
     flex-direction: column;
     align-items: center;
     position: relative;
+
+    @media (min-width : 768px) {
+        padding: 4rem 3rem;
+    }
 
     .close-btn {
         border: 2px solid red;
