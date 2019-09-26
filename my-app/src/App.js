@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import UserForm from "./components/Onboarding/UserForm";

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Form } from './Styles';
-import axios from "axios"
 import { axiosWithAuth } from "../../utils/axiosWithAuth"
 
 const AddPlantsForm = props => {
@@ -48,7 +47,7 @@ const AddPlantsForm = props => {
     const handleFormSubmit = (e) => {
         
         if(species && name && location && schedule) {
-            // e.preventDefault();
+            e.preventDefault();
             
             // console.log("value of newPlant inside of handleFormSubmit", newPlant);
             // testFunc(newUser); //testing to see if this is making it back to actions
@@ -57,9 +56,10 @@ const AddPlantsForm = props => {
 
             let plantTest = ({...newPlant, schedule: parseInt(newPlant.schedule)})
             setNewPlant(plantTest);
+            showModal();
             // console.log("plantTest", plantTest, "newPlant", newPlant)
             addPlant(plantTest)
-
+            
         }
     }
 

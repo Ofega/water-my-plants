@@ -4,31 +4,24 @@ import notFound from "../img/not-found.svg";
 // import { connect } from 'react-redux';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
-//HERE I NEED TO IMPORT AN ACTION CREATOR FROM ACTIONS FILE, DESTRUCTURE PROPS, MIGHT NEED USESTATE TO POPULATE PLANTS UPON
-
-// const TestPlant = () =>{
-// const [plantsList, setPlantsList] = useState([]);
-
-
-
-
-// TestPlant();
-
 
 
 
 const PlantsList = () => {
     // const { plantsList } = props;
+    const username = localStorage.getItem("username");
+
     const plantsList = []
 
     const [ plant, setPlant] = useState([plantsList]);
 
 
     useEffect(()=>{
+
         axiosWithAuth()
-    .get("plants/plants")
-    .then(res =>{
-        let plantsArray = res.data
+        .get(`https://nchampag-watermyplants.herokuapp.com/getuser/${username}`)
+        .then(res =>{
+        let plantsArray = res.data.plants
         setPlant(plantsArray);
         console.log("Plants Array", plantsArray)
     })
@@ -38,9 +31,20 @@ const PlantsList = () => {
 
     console.log("PLANNNNNNNT!!!",plant)
 
-
+// HERE TO TOP IS WORKING
 ///////
 
+
+const deletePlant = (plantid) =>{
+    axiosWithAuth()
+    .delete(`plants/plant/${plantid}`)
+    .then(res=>{
+        console.log("res inside delete", res)
+    })
+    .catch(error=>{
+        console.log("error in delete", error)
+    })
+}
 
 
         
@@ -52,13 +56,14 @@ const PlantsList = () => {
                 plant.length !== 0 ? (
                     <ul>
                         {   
-                            plant.map(({ id, species, name, location, schedule }) => {
+                            plant.map(({ id, plantid, species, name, location, schedule }) => {
                                 return (
                                     <li key={id}>
                                         <p>Species: <span>{species}</span></p>
                                         <p>Name: <span>{name}</span></p>
                                         <p>Location: <span>{location}</span></p>
                                         <p>Schedule: <span>{schedule > 1 ? `${schedule} times` : 'Once'} a week</span></p>
+                                        <p className="deleteButton" onClick={()=>{deletePlant(plantid)}}> DELETE </p>
                                     </li>
                                 )
                             })
