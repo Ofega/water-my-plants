@@ -28,7 +28,7 @@ const LoginForm = () => {
             e.preventDefault();
             userLogIn({username: existingUser.loginUsername, password: existingUser.loginPassword});
             console.log("Object made in login form",{username: existingUser.loginUsername, password: existingUser.loginPassword});
-
+            localStorage.setItem("username", existingUser.loginUsername)
             // console.log("existingUser", existingUser);
             // ON SUBMIT, DO WHAT YOU WANT WITH THE EXISTING USER OBJECT HERE :)
             setExistingUser(initialExistingUser);
