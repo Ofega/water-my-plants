@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect, withRouter } from "react-router-dom";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { axiosWithAuth } from './utils/axiosWithAuth';
 import { useLocalStorage } from './components/CustomHooks';
 import { ToastContainer, toast } from "react-toastify";
@@ -8,10 +9,11 @@ import Register from "./components/Onboarding/Register";
 import Login from "./components/Onboarding/Login";
 
 import axios from "axios";
+import styled from "styled-components";
 import "react-toastify/dist/ReactToastify.css";
 
 
-const App = () => {
+const App = ({ location }) => {
 
   const [ plants, setPlants ] = useState([]); //All the plants for the user
   const [ isLoading, setLoadingIndicator ] = useState(false); //Loading Indicator
@@ -88,57 +90,95 @@ const App = () => {
   }, [currentUser, newPlant])
 
   return (   
-    <>   
-      <Switch>
-        <Route 
-          path="/register" 
-          render={(props) => <Register
-            notify={notify} 
-            isLoading={isLoading}
-            toggleLoading={toggleLoading}
-            {...props} 
-          />}
-        />
+    <Wrapper>   
+      <TransitionGroup>
+        <CSSTransition
+          key={location.key}
+          timeout={{ enter: 500, exit: 500 }}
+          classNames={'scale'}
+        >
+          <section>
+            <Switch location={location}>
+              <Route 
+                path="/register" 
+                render={(props) => <Register
+                  notify={notify} 
+                  isLoading={isLoading}
+                  toggleLoading={toggleLoading}
+                  {...props} 
+                />}
+              />
 
-        <Route 
-          path="/login" 
-          render={(props) => <Login 
-            notify={notify}
-            addToken={addToken} 
-            isLoading={isLoading}
-            toggleLoading={toggleLoading}
-            toggleAuthentication={toggleAuthentication} 
-            addCurrentUser={addCurrentUser} 
-            currentUser={currentUser} {...props} 
-          />}
-        />
+              <Route 
+                path="/login" 
+                render={(props) => <Login 
+                  notify={notify}
+                  addToken={addToken} 
+                  isLoading={isLoading}
+                  toggleLoading={toggleLoading}
+                  toggleAuthentication={toggleAuthentication} 
+                  addCurrentUser={addCurrentUser} 
+                  currentUser={currentUser} {...props} 
+                />}
+              />
 
-        <Route path="/" render={
-              props => isAuthenticated ? (
-                  <Dashboard
-                    {...props}
-                    notify={notify}
-                    plants={plants}
-                    addPlant={addPlant}
-                    deletePlant={deletePlant}
-                    currentUser={currentUser}
-                    currentUserID={currentUserID}
-                    isLoading={isLoading}
-                    toggleLoading={toggleLoading}
-                    isModalOpen={isModalOpen}
-                    showModal={showModal}
-                    toggleAuthentication={toggleAuthentication}
-                  />
-                ) : (
-                  <Redirect to={{ pathname: "/login" }} />
-                )
-            }
-          />
-      </Switch>
-      <ToastContainer />
-    </>
+              <Route path="/" render={
+                    props => isAuthenticated ? (
+                        <Dashboard
+                          {...props}
+                          notify={notify}
+                          plants={plants}
+                          addPlant={addPlant}
+                          deletePlant={deletePlant}
+                          currentUser={currentUser}
+                          currentUserID={currentUserID}
+                          isLoading={isLoading}
+                          toggleLoading={toggleLoading}
+                          isModalOpen={isModalOpen}
+                          showModal={showModal}
+                          toggleAuthentication={toggleAuthentication}
+                        />
+                      ) : (
+                        <Redirect to={{ pathname: "/login" }} />
+                      )
+                  }
+                />
+            </Switch>
+            <ToastContainer />
+          </section>
+        </CSSTransition>  
+      </TransitionGroup>      
+    </Wrapper>
   );
 }
 
-export default App;
+export default withRouter(App);
+
+const Wrapper = styled.div`
+  .scale-enter {
+    transform: translateY(-5px);
+    opacity: 0.5;
+    overflow-y: hidden;
+    overflow-x: hidden;
+
+    &.scale-enter-active {
+      transform: translateY(0);
+      opacity: 1;
+      overflow-y: auto;
+      overflow-x: auto;
+      transition: all .5s ease-in;
+    }
+  }
+
+  .scale-exit {
+    transform: translateZ(-5px);
+    opacity: 0.5;
+
+    &.scale-exit-active {
+      transform: translateZ(0);
+      opacity: 1;
+      transition: all 1s ease-in;
+    }
+  }
+`
 
