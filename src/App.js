@@ -156,26 +156,22 @@ export default withRouter(App);
 
 const Wrapper = styled.div`
   .scale-enter {
-    transform: translateY(-5px);
-    opacity: 0.5;
-    overflow-y: hidden;
-    overflow-x: hidden;
+    transform: translateY(-10px);
+    opacity: 0.7;
 
     &.scale-enter-active {
       transform: translateY(0);
       opacity: 1;
-      overflow-y: auto;
-      overflow-x: auto;
-      transition: all .5s ease-in;
+      transition: all 1s ease-in;
     }
   }
 
   .scale-exit {
-    transform: translateZ(-5px);
+    transform: translateY(-10px);
     opacity: 0.5;
 
     &.scale-exit-active {
-      transform: translateZ(0);
+      transform: translateY(0);
       opacity: 1;
       transition: all 1s ease-in;
     }
