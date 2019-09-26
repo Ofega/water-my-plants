@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import { Form } from './Styles';
 
+
 const AddPlantsForm = props => {
+    const { showModal, addPlant, currentUserID } = props;
 
-    const { showModal } = props;
-    
     const initialPlant = {
-        species: '',
-        name: '',
-        location: '',
-        schedule: '',
+        "species": '',
+        "name": '',
+        "location": '',
+        "schedule": 0,
+        "user": {
+            "userid": parseInt(currentUserID)
+        }
     }
-
     const [ newPlant, setNewPlant] = useState(initialPlant);
-
     const { species, name, location, schedule } = newPlant;
+
 
     // Handler Functions
     const handleInputChange = (e) => {
@@ -25,15 +27,14 @@ const AddPlantsForm = props => {
     }
 
     const handleFormSubmit = (e) => {
-        
         if(species && name && location && schedule) {
             e.preventDefault();
-            console.log("value of newUser inside of handleFormSubmit", newPlant);
-            // testFunc(newUser); //testing to see if this is making it back to actions
-            // ON SUBMIT, DO WHAT YOU WANT WITH THE NEW USER OBJECT HERE :)
+            addPlant({...newPlant, schedule: parseInt(newPlant.schedule)});
             setNewPlant(initialPlant);
+            showModal();
         }
     }
+
 
     return (
         <Form autoComplete="off">

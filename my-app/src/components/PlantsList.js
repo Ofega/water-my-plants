@@ -3,18 +3,19 @@ import styled from "styled-components";
 import notFound from "../img/not-found.svg";
 
 
+
 const PlantsList = props => {
-    const { plantsList } = props;
+    const { plants } = props;
 
     return (
         <ListContainer>
             {
-                plantsList.length !== 0 ? (
+                plants.length !== 0 ? (
                     <ul>
                         {   
-                            plantsList.map(({ id, species, name, location, schedule }) => {
+                            plants.map(({ plantid, species, name, location, schedule }) => {
                                 return (
-                                    <li key={id}>
+                                    <li key={plantid}>
                                         <p>Species: <span>{species}</span></p>
                                         <p>Name: <span>{name}</span></p>
                                         <p>Location: <span>{location}</span></p>
@@ -37,6 +38,8 @@ const PlantsList = props => {
 
 export default PlantsList;
 
+
+////////STYLING/////////
 const ListContainer = styled.div`
     max-width: 1140px;
     margin: 6rem auto 3rem;

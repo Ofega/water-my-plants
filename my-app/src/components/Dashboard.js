@@ -3,14 +3,16 @@ import { Route, Switch, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import onboardingBG from '../img/onboarding-bg.jpg';
 import logo from '../img/logo.jpg';
-import PlantsList from "./PlantsList";
+import  PlantsList from "./PlantsList";
 import EditProfile from './EditProfile';
 import AddPlantsModal from './AddPlantsModal';
 
 
+
+
 const Dashboard = props => {
 
-    const { plantsList, isModalOpen, showModal } = props;
+    const { plants, addPlant, currentUser, currentUserID, isModalOpen, showModal } = props;
 
     return (
         <MainContainer>
@@ -37,14 +39,14 @@ const Dashboard = props => {
                     </button>
                 </div>
             </header>
-            <AddPlantsModal isModalOpen={isModalOpen} showModal={showModal} />
+            <AddPlantsModal isModalOpen={isModalOpen} currentUser={currentUser} currentUserID={currentUserID} addPlant={addPlant} showModal={showModal} />
             
             <Switch>
                 <Route 
                     exact path="/" 
                     render={(props) => <PlantsList
                         {...props}
-                        plantsList={plantsList}
+                        plants={plants}
                     />}
                 />
 

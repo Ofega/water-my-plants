@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Switch } from "react-router-dom";
+import { axiosWithAuth } from './utils/axiosWithAuth';
+import axios from "axios";
 import Dashboard from "./components/Dashboard";
 import UserForm from "./components/Onboarding/UserForm";
 import Login from "./components/Onboarding/Login";
@@ -8,66 +10,54 @@ import Login from "./components/Onboarding/Login";
 
 const App = () => {
 
-  // Initial State for now. Until Redux get incorporated;
+  const userName = localStorage.getItem('username') || '';
+
+  const [ plants, setPlants ] = useState([]);
   const [ isModalOpen, setModalOpen ] = useState(false);
-  const [ plantsList ] = useState([
-    {
-      id: 1,
-      species: 'Lucky Bamboo1',
-      name: 'Bambi',
-      location: 'Kitchen',
-      schedule: 4,
-    },
-    {
-      id: 2,
-      species: 'Lucky Bamboo1',
-      name: 'Bambi',
-      location: 'Kitchen',
-      schedule: 1,
-    },
-    {
-      id: 3,
-      species: 'Lucky Bamboo1',
-      name: 'Bambi',
-      location: 'Kitchen',
-      schedule: 4,
-    },
-    {
-      id: 4,
-      species: 'Lucky Bamboo1',
-      name: 'Bambi',
-      location: 'Kitchen',
-      schedule: 4,
-    },
-    {
-      id: 5,
-      species: 'Lucky Bamboo1',
-      name: 'Bambi',
-      location: 'Kitchen',
-      schedule: 4,
-    },
-    {
-      id: 6,
-      species: 'Lucky Bamboo1',
-      name: 'Bambi',
-      location: 'Kitchen',
-      schedule: 4,
-    },
-    {
-      id: 7,
-      species: 'Lucky Bamboo1',
-      name: 'Bambi',
-      location: 'Kitchen',
-      schedule: 4,
-    },
-    {
-      id: 8,
-      species: 'Lucky Bamboo1',
-      name: 'Bambi',
-      location: 'Kitchen',
-      schedule: 4,
+  const [ currentUser, setCurrentUser ] = useState(userName);
+  const [ currentUserID, setCurrentUserID ] = useState('');
+  const [ newPlant, setNewPlant ] = useState(null)
+
+
+  const addCurrentUser = (user) => {
+    setCurrentUser(user);
+  }
+
+  useEffect(() => {
+    localStorage.setItem('username', currentUser);
+
+    if(currentUser !== '') {
+      axios
+        .get(`https://nchampag-watermyplants.herokuapp.com/getuser/${currentUser}`)
+        .then(res => {
+          setCurrentUserID(res.data.userid);
+          setPlants(res.data.plants);
+        })
     }
-  ])
+  }, [currentUser])
+
+  useEffect(() => {
+    if(newPlant !== null) {
+      console.log('Yaaay')
+      axios
+        .get(`https://nchampag-watermyplants.herokuapp.com/getuser/${currentUser}`)
+        .then(res => {
+          console.log(res.data.plants)
+          setPlants(res.data.plants);
+        })
+    }
+  }, [currentUser, newPlant])
+
+
+  const addPlant = ( newPlantObj ) => {
+    axiosWithAuth()
+      .post("plants/plant", newPlantObj)
+      .then(res => {
+        setNewPlant(res.data);
+      })
+      .catch(error => console.log("error inside addPlant actions", error)
+    )
+  }
 
   // Handler Functions
   const showModal = (e) => {
@@ -84,7 +74,7 @@ const App = () => {
 
       <Route 
         path="/login" 
-        render={(props) => <Login {...props} />}
+        render={(props) => <Login addCurrentUser={addCurrentUser} {...props} />}
       />
 
       <Route 
@@ -93,7 +83,10 @@ const App = () => {
           (props) => 
             <Dashboard
               {...props}
-              plantsList={plantsList}
+              plants={plants}
+              addPlant={addPlant}
+              currentUser={currentUser}
+              currentUserID={currentUserID}
               isModalOpen={isModalOpen}
               showModal={showModal}
             />
@@ -104,3 +97,4 @@ const App = () => {
 }
 
 export default App;
+

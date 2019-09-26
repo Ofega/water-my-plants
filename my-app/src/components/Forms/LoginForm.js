@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import { userLogIn } from "../../actions";
 
 
-const LoginForm = () => {
+const LoginForm = props => {
+
+    const { addCurrentUser } = props
 
     const initialExistingUser = {
         loginUsername: '',
@@ -28,11 +30,8 @@ const LoginForm = () => {
             e.preventDefault();
             userLogIn({username: existingUser.loginUsername, password: existingUser.loginPassword});
             console.log("Object made in login form",{username: existingUser.loginUsername, password: existingUser.loginPassword});
-
-            // console.log("existingUser", existingUser);
-            // ON SUBMIT, DO WHAT YOU WANT WITH THE EXISTING USER OBJECT HERE :)
+            addCurrentUser(existingUser.loginUsername)
             setExistingUser(initialExistingUser);
-
         }
     }
     
