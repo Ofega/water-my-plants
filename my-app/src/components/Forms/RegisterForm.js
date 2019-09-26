@@ -1,10 +1,30 @@
 import React, { useState } from "react";
 import { Form } from './Styles';
 import { Link } from "react-router-dom";
-import { userSignUp } from "../../actions";
+import axios from "axios";
 
 
 const RegisterForm = () => {
+const [toLogin, setToLogin] = useState(false);
+
+    const userSignUp = (newUser) =>{
+        console.log("ANOTHER TEST")
+          // dispatch({type: USER_SIGNUP});
+          console.log("TESTING")
+             return axios
+              .post("https://nchampag-watermyplants.herokuapp.com/createnewuser", newUser) //this information should be imported from the sign up form. //done
+              .then(res=>{
+                  console.log("res inside of userSignUp",res)
+                  localStorage.setItem("token", res.data.token); //shows in application console
+                  
+              })
+              .catch(error => console.log("error FROM USERSIGNUP inside actions", error),
+               ); 
+          
+      } 
+
+
+
 
     const initialNewUser = {
         username: '',
@@ -59,9 +79,9 @@ const RegisterForm = () => {
                 <input type='password' id="password" name='password' onChange={handleInputChange} value={password} placeholder='Password' required/>
             </div>
 
-            <button type='submit' onClick={handleFormSubmit}>
+            <Link to="/login"><button type='submit' onClick={handleFormSubmit}>
                 Register
-            </button>
+            </button></Link>
 
             <p className="text-link">Already a member, <Link to="/login">Login here</Link></p>
         </Form>

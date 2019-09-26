@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Form } from './Styles';
 import { Link } from "react-router-dom";
-import { userLogIn } from "../../actions";
-
+import axios from "axios";
+import { axiosWithAuth } from "../../utils/axiosWithAuth"
 
 const LoginForm = () => {
 
@@ -14,7 +14,43 @@ const LoginForm = () => {
     const [ existingUser, setExistingUser] = useState(initialExistingUser);
 
     const { loginUsername, loginPassword } = existingUser;
+//Function
 
+const userLogIn = (newUser) => { 
+    
+      axios
+        .post(
+          "https://nchampag-watermyplants.herokuapp.com/login",
+          `grant_type=password&username=${newUser.username}&password=${newUser.password}`,
+          {
+            headers: {
+              Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
+              "Content-Type": "application/x-www-form-urlencoded"
+            }
+          }
+        )
+        .then(res => {
+          console.log("cat", res);
+          localStorage.setItem("token", res.data.access_token);
+        let plantUser = localStorage.getItem("username");
+                axiosWithAuth()
+                  .get(`plants/userName/${plantUser}`)
+                  .then(res => {
+                      console.log("res inside userName", res)
+                })
+                  })
+              .catch(err => {
+                console.log(err.response)
+            })
+        .catch(err => {
+          console.dir(err);
+        });
+
+   };
+
+
+
+///EndFunction
     // Handler Functions
     const handleInputChange = (e) => {
         setExistingUser({

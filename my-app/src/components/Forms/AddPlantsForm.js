@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Form } from './Styles';
-import axios from "axios"
 import { axiosWithAuth } from "../../utils/axiosWithAuth"
 
 const AddPlantsForm = props => {
@@ -28,27 +27,13 @@ const AddPlantsForm = props => {
         })
     }
 
-    // useEffect(()=>{
-    //     const username = localStorage.getItem("username");
-    //     return axios
-    //     .get(`https://nchampag-watermyplants.herokuapp.com/getuser/${username}`)
-    //     .then(res=>{
-    //         console.log("response from useEffect", res)
-    //         localStorage.setItem("userid", res.data.userid)
-    //         //returns the whole user obj
-    //         //save userid and all of the plants to state
-    //         //take the userid and send with new plant we are creating
-    //         // const userid = user.userid
-    //         // localStorage.setItem("userid", userid)
-    //     })
-
-    // }, [])
+   
 
 
     const handleFormSubmit = (e) => {
         
         if(species && name && location && schedule) {
-            // e.preventDefault();
+            e.preventDefault();
             
             // console.log("value of newPlant inside of handleFormSubmit", newPlant);
             // testFunc(newUser); //testing to see if this is making it back to actions
@@ -57,9 +42,9 @@ const AddPlantsForm = props => {
 
             let plantTest = ({...newPlant, schedule: parseInt(newPlant.schedule)})
             setNewPlant(plantTest);
+            showModal();
             // console.log("plantTest", plantTest, "newPlant", newPlant)
-            addPlant(plantTest)
-
+            addPlant(plantTest)            
         }
     }
 

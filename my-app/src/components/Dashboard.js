@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect} from 'react';
 import { Route, Switch, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import onboardingBG from '../img/onboarding-bg.jpg';
 import logo from '../img/logo.jpg';
-import  PlantsList from "./PlantsList";
+import  PlantsList  from "./PlantsList";
 import EditProfile from './EditProfile';
 import AddPlantsModal from './AddPlantsModal';
 import axios from "axios";
@@ -13,21 +13,15 @@ import axios from "axios";
 const Dashboard = props => {
 
     const { plantsList, isModalOpen, showModal } = props;
-
+    const username = localStorage.getItem("username");
 
     useEffect(()=>{
         const username = localStorage.getItem("username");
-        return axios
-        .get(`https://nchampag-watermyplants.herokuapp.com/getuser/${username}`)
-        .then(res=>{
-            console.log("response from useEffect", res)
-            localStorage.setItem("userid", res.data.userid)
-            //returns the whole user obj
-            //save userid and all of the plants to state
-            //take the userid and send with new plant we are creating
-            // const userid = user.userid
-            // localStorage.setItem("userid", userid)
-        })
+        axios
+            .get(`https://nchampag-watermyplants.herokuapp.com/getuser/${username}`)
+            .then(res => {
+        console.log("response from aaaaa useEffect", res)
+        localStorage.setItem("userid", res.data.userid)});;
 
     }, [])
 
@@ -49,7 +43,7 @@ const Dashboard = props => {
             <header>
                 <img src={onboardingBG} alt="Header Background" />
                 <div className="header-content">
-                    <h1>Welcome Smithy!</h1>
+                    <h1>Welcome {username}!</h1>
                     
                     <button onClick={showModal}>
                         +
