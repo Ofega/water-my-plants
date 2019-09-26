@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form } from './Styles';
-
+import { axiosWithAuth } from "../../utils/axiosWithAuth"
 
 const EditProfileForm = () => {
 
@@ -22,16 +22,31 @@ const EditProfileForm = () => {
         })
     }
 
+    let userid = parseInt(localStorage.getItem("userid"));
+
+// console.log(typeof(userid))
+ const updateProfile = (userid) =>{
+        axiosWithAuth()
+            .put(`user/${userid}`, profileInfo )
+            .then(res=>{
+                console.log("NEWPROFILE", profileInfo)
+            })
+            .catch(error =>
+                console.log(error))
+    }
+
     const handleFormSubmit = (e) => {
         
         if(username && phonenumber && password) {
             e.preventDefault();
-            console.log("value of newUser inside of handleFormSubmit", profileInfo);
-            // testFunc(newUser); //testing to see if this is making it back to actions
-            // ON SUBMIT, DO WHAT YOU WANT WITH THE NEW USER OBJECT HERE :)
+            console.log("value of newUser inside of EDIT PROFILE handleFormSubmit", profileInfo);
+            updateProfile(userid)
+            //this is running the function above with the userid from local storage to the endpoint (as a number) and then the function is sending in the profile info needed to update.
             setProfileInfo(initialProfileInfo);
         }
     }
+
+   
 
     return (
         <Form autoComplete="off">
