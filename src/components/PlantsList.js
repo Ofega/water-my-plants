@@ -19,7 +19,7 @@ const PlantsList = props => {
                                         <p>Name: <span>{name}</span></p>
                                         <p>Location: <span>{location}</span></p>
                                         <p>Schedule: <span>{schedule > 1 ? `${schedule} times` : 'Once'} a week</span></p>
-                                        <p className="deleteButton" onClick={()=>{deletePlant(plantid, { plantid, species, name, location, schedule })}}> DELETE </p>
+                                        <button className="deleteButton" onClick={()=>{deletePlant(plantid, { plantid, species, name, location, schedule })}}> x </button>
                                     </li>
                                 )
                             })
@@ -39,7 +39,6 @@ const PlantsList = props => {
 export default PlantsList;
 
 
-////////STYLING/////////
 const ListContainer = styled.div`
     max-width: 1140px;
     margin: 6rem auto 3rem;
@@ -69,6 +68,7 @@ const ListContainer = styled.div`
             border-radius: 5px;
             box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
             padding: 2rem;
+            position: relative;
 
             p {
                 font-size: 1.4rem;
@@ -78,6 +78,30 @@ const ListContainer = styled.div`
                 &:last-of-type {
                     margin-bottom: 0;
                 }
+            }
+
+            &:hover {
+                button {
+                    display: block;
+                }
+            }
+
+            button {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                width: 25px;
+                height: 25px;
+                min-width: auto;
+                margin: 0;
+                border-radius: 100%;
+                padding: 0;
+                min-height: auto;
+                border: none;
+                outline: none
+                background: red;
+                color: #fff
+                display: none;
             }
         }
     }
