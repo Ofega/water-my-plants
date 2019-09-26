@@ -165,24 +165,24 @@ export default withRouter(App);
 
 const Wrapper = styled.div`
   .scale-enter {
-    transform: translateY(-10px);
-    opacity: 0.7;
+    transform: translateY(-20px);
+    // opacity: 0.7;
 
     &.scale-enter-active {
       transform: translateY(0);
-      opacity: 1;
-      transition: all 1s ease-in;
+      // opacity: 1;
+      transition: all .5s ease-in;
     }
   }
 
   .scale-exit {
-    transform: translateY(-10px);
-    opacity: 0.5;
+    transform: translateY(-20px);
+    // opacity: 0.7;
 
     &.scale-exit-active {
       transform: translateY(0);
-      opacity: 1;
-      transition: all 1s ease-in;
+      // opacity: 1;
+      transition: all .5s ease-in;
     }
   }
 `
