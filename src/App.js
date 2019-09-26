@@ -80,6 +80,7 @@ const App = () => {
         .get(`https://nchampag-watermyplants.herokuapp.com/getuser/${currentUser}`)
         .then(res => {
           setCurrentUserID(res.data.userid);
+          localStorage.setItem("userid", res.data.userid);
           setPlants(res.data.plants);
           toggleLoading(false);
         })

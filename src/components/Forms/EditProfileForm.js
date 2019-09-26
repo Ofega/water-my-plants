@@ -7,11 +7,11 @@ const EditProfileForm = (props) => {
     const { currentUserID } = props;
 
     const initialProfileInfo = {
-        userid: currentUserID,
-        username: '',
+    
         password: '',
-        phonenumber: ''
-
+        phonenumber: '',
+        userid: (localStorage.getItem("userid")),
+        username: ''
     }
     
     console.log(currentUserID)
@@ -29,29 +29,31 @@ const EditProfileForm = (props) => {
         })
     }
 
-    // let userid = parseInt(localStorage.getItem("userid"));
+    let usersidnum = parseInt(localStorage.getItem("userid"));
+    console.log("USERSIDNUM", usersidnum)
 
- const updateProfile = (currentUserID) =>{
-     console.log(currentUserID) //23
+
+ const updateProfile = (myid, profileInfo) =>{
+     console.log("MY PROFILE INSIDE UPDATE PROFILE", profileInfo) //23
         axiosWithAuth()
-            .put(`https://nchampag-watermyplants.herokuapp.com/user/23`, profileInfo )
+            .put(`user/${myid}`, profileInfo)
             .then(res=>{
-                console.log("NEWPROFILE", profileInfo)
                 console.log("UserID", currentUserID)
-                console.log(res)
+                console.log("THIS IS THE RES",res)
+                console.log("INSIDE THE RES", profileInfo)
             })
             .catch(error =>
-                console.log(error))
+                console.log(error.response),
+                console.log("INSIDE THE ERROR", profileInfo))
     }
 
     const handleFormSubmit = (e) => {
         
             e.preventDefault();
             console.log("value of newUser inside of EDIT PROFILE handleFormSubmit", profileInfo);
-            updateProfile(currentUserID)
-            console.log("inside HFS",currentUserID)
-            //this is running the function above with the userid from local storage to the endpoint (as a number) and then the function is sending in the profile info needed to update.
-            setProfileInfo(initialProfileInfo);
+            updateProfile(usersidnum, profileInfo)
+            console.log("inside HFS", usersidnum, profileInfo)
+            // setProfileInfo(initialProfileInfo);
         
     }
 
@@ -78,7 +80,7 @@ const EditProfileForm = (props) => {
                 <input type='password' id="password" name='password' onChange={handleInputChange} value={password} placeholder='Password' />
             </div>
 
-            <button type='submit' onClick={handleFormSubmit}>
+            <button onClick={handleFormSubmit}>
                 Edit Profile
             </button>
         </Form>

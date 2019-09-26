@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form } from './Styles';
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 
