@@ -1,10 +1,32 @@
 import React, { useState } from "react";
 import { Form } from './Styles';
 import { Link } from "react-router-dom";
-import { userSignUp } from "../../actions";
+import axios from "axios";
 
 
 const RegisterForm = () => {
+
+    const userSignUp = (newUser) =>{
+        console.log("ANOTHER TEST")
+          // dispatch({type: USER_SIGNUP});
+          console.log("TESTING")
+             return axios
+              .post("https://nchampag-watermyplants.herokuapp.com/createnewuser", newUser) //this information should be imported from the sign up form. //done
+              .then(res=>{
+                  console.log("res inside of userSignUp",res)
+                  localStorage.setItem("token", res.data.token); //shows in application console
+                  // props.history.push("/login"); //
+                  // dispatch({
+                  //   type: USER_SIGNUP_SUCCESS
+                  // });
+              })
+              .catch(error => console.log("error FROM USERSIGNUP inside actions", error),
+               ); 
+          
+      } 
+
+
+
 
     const initialNewUser = {
         username: '',
