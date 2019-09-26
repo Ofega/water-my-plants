@@ -7,7 +7,7 @@ const UserForm = props => {
   return (
     <Onboarding>
       <div className="hero-background"></div>
-      <RegisterForm />
+      <RegisterForm {...props} />
     </Onboarding>
   );
 };

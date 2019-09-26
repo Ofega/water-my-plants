@@ -12,7 +12,7 @@ import AddPlantsModal from './AddPlantsModal';
 
 const Dashboard = props => {
 
-    const { plants, addPlant, deletePlant, currentUser, currentUserID, isModalOpen, showModal } = props;
+    const { plants, addPlant, deletePlant, toggleAuthentication, currentUser, currentUserID, isModalOpen, showModal } = props;
 
     return (
         <MainContainer>
@@ -25,7 +25,7 @@ const Dashboard = props => {
                     <ul>
                         <li><NavLink activeClassName='selected' exact to="/">Dashboard</NavLink></li>
                         <li><NavLink activeClassName='selected' to="/edit-profile">Edit Profile</NavLink></li>
-                        <li><button>Logout</button></li>
+                        <li><button onClick={toggleAuthentication}>Logout</button></li>
                     </ul>
                 </div>
             </nav>

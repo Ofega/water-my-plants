@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { axiosWithAuth } from './utils/axiosWithAuth';
+import { useLocalStorage } from './components/CustomHooks';
 import axios from "axios";
 import Dashboard from "./components/Dashboard";
 import UserForm from "./components/Onboarding/UserForm";
@@ -10,22 +11,28 @@ import Login from "./components/Onboarding/Login";
 
 const App = () => {
 
-  const userName = localStorage.getItem('username') || '';
-
   const [ plants, setPlants ] = useState([]);
   const [ isModalOpen, setModalOpen ] = useState(false);
-  const [ currentUser, setCurrentUser ] = useState(userName);
+  const [ isAuthenticated, setIsAuthenticated ] = useLocalStorage('isAuthenticated', false);
+  const [ currentUser, setCurrentUser ] = useLocalStorage('username', '');
+  const [ token, setToken ] = useLocalStorage('token', '');
   const [ currentUserID, setCurrentUserID ] = useState('');
-  const [ newPlant, setNewPlant ] = useState(null)
+  const [ newPlant, setNewPlant ] = useState(null);
 
 
   const addCurrentUser = (user) => {
     setCurrentUser(user);
   }
 
-  useEffect(() => {
-    localStorage.setItem('username', currentUser);
+  const addToken = (token) => {
+    setToken(token);
+  }
 
+  const toggleAuthentication = () => {
+    setIsAuthenticated(!isAuthenticated)
+  }
+
+  useEffect(() => {
     if(currentUser !== '') {
       axios
         .get(`https://nchampag-watermyplants.herokuapp.com/getuser/${currentUser}`)
@@ -79,32 +86,38 @@ const App = () => {
   return (      
     <Switch>
       <Route 
-        exact 
         path="/register" 
         render={(props) => <UserForm {...props} />}
       />
 
       <Route 
         path="/login" 
-        render={(props) => <Login addCurrentUser={addCurrentUser} {...props} />}
+        render={(props) => <Login 
+          addToken={addToken} 
+          toggleAuthentication={toggleAuthentication} 
+          addCurrentUser={addCurrentUser} 
+          currentUser={currentUser} {...props} 
+        />}
       />
 
-      <Route 
-        path="/" 
-        render={
-          (props) => 
-            <Dashboard
-              {...props}
-              plants={plants}
-              addPlant={addPlant}
-              deletePlant={deletePlant}
-              currentUser={currentUser}
-              currentUserID={currentUserID}
-              isModalOpen={isModalOpen}
-              showModal={showModal}
-            />
-        }
-      />
+      <Route path="/" render={
+            props => isAuthenticated ? (
+                <Dashboard
+                  {...props}
+                  plants={plants}
+                  addPlant={addPlant}
+                  deletePlant={deletePlant}
+                  currentUser={currentUser}
+                  currentUserID={currentUserID}
+                  isModalOpen={isModalOpen}
+                  showModal={showModal}
+                  toggleAuthentication={toggleAuthentication}
+                />
+              ) : (
+                <Redirect to={{ pathname: "/login" }} />
+              )
+          }
+        />
     </Switch>
   );
 }

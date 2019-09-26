@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { Form } from './Styles';
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { axiosWithAuth } from "../../utils/axiosWithAuth"
 
 const LoginForm = props => {
 
-    const { addCurrentUser } = props
+    const { addCurrentUser, toggleAuthentication, addToken, history } = props
 
     const initialExistingUser = {
         loginUsername: '',
@@ -14,45 +13,30 @@ const LoginForm = props => {
     }
 
     const [ existingUser, setExistingUser] = useState(initialExistingUser);
-
     const { loginUsername, loginPassword } = existingUser;
-//Function
 
-const userLogIn = (newUser) => { 
-    
-      axios
-        .post(
-          "https://nchampag-watermyplants.herokuapp.com/login",
-          `grant_type=password&username=${newUser.username}&password=${newUser.password}`,
-          {
-            headers: {
-              Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
-              "Content-Type": "application/x-www-form-urlencoded"
-            }
-          }
-        )
-        .then(res => {
-          console.log("cat", res);
-          localStorage.setItem("token", res.data.access_token);
-        let plantUser = localStorage.getItem("username");
-                axiosWithAuth()
-                  .get(`plants/userName/${plantUser}`)
-                  .then(res => {
-                      console.log("res inside userName", res)
-                })
-                  })
-              .catch(err => {
-                console.log(err.response)
+
+    const userLogIn = (user) => { 
+        axios
+            .post(
+                "https://nchampag-watermyplants.herokuapp.com/login", 
+                `grant_type=password&username=${user.loginUsername}&password=${user.loginPassword}`,
+                {
+                    headers: {
+                    Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
+                    "Content-Type": "application/x-www-form-urlencoded"
+                    }
+                }
+            )
+            .then(res => {
+                addToken(res.data.access_token);          
+                toggleAuthentication();
+                history.push('/');
             })
-        .catch(err => {
-          console.dir(err);
-        });
-
+            .catch(err => { console.dir(err)});
    };
 
 
-
-///EndFunction
     // Handler Functions
     const handleInputChange = (e) => {
         setExistingUser({
@@ -64,9 +48,9 @@ const userLogIn = (newUser) => {
     const handleFormSubmit = (e) => {
         if(loginUsername && loginPassword) {
             e.preventDefault();
-            userLogIn({username: existingUser.loginUsername, password: existingUser.loginPassword});
-            console.log("Object made in login form",{username: existingUser.loginUsername, password: existingUser.loginPassword});
-            addCurrentUser(existingUser.loginUsername)
+            addCurrentUser(loginUsername)
+
+            userLogIn(existingUser);
             setExistingUser(initialExistingUser);
         }
     }
