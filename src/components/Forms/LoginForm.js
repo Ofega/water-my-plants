@@ -35,6 +35,7 @@ const LoginForm = props => {
                 history.push('/');
             })
             .catch(err => { 
+                toggleLoading(false); 
                 notify('Unsuccessful! Try Again', 'error')
             });
    };

@@ -60,7 +60,10 @@ const App = ({ location }) => {
         toggleLoading(false);
         notify('New Plant Added', 'success')
       })
-      .catch(err => notify('Unsuccessful! Try Again', 'error'))
+      .catch(err => {
+        toggleLoading(false); 
+        notify('Unsuccessful! Try Again', 'error')
+      })
   }
 
   const deletePlant = (plantid, plantObj) => {
@@ -72,7 +75,10 @@ const App = ({ location }) => {
         toggleLoading(false);
         notify('Plant Deleted', 'success')
       })
-      .catch(err => notify('Unsuccessful! Try Again', 'error'))
+      .catch(err => {
+        toggleLoading(false); 
+        notify('Unsuccessful! Try Again', 'error')
+      })
   }
 
 
@@ -85,7 +91,10 @@ const App = ({ location }) => {
           setPlants(res.data.plants);
           toggleLoading(false);
         })
-        .catch(err => notify('Unsuccessful! Refresh page', 'error'))
+        .catch(err => {
+          toggleLoading(false); 
+          notify('Unsuccessful! Refresh page', 'error')
+        })
     }
   }, [currentUser, newPlant])
 
