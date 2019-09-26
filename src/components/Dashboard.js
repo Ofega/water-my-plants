@@ -6,8 +6,7 @@ import logo from '../img/logo.jpg';
 import  PlantsList  from "./PlantsList";
 import EditProfile from './EditProfile';
 import AddPlantsModal from './AddPlantsModal';
-
-
+import LoadingIndicator from './LoadingIndicator';
 
 
 const Dashboard = props => {
@@ -25,6 +24,8 @@ const Dashboard = props => {
         toggleAuthentication, 
         currentUser, 
         currentUserID, 
+        isLoading,
+        toggleLoading,
         isModalOpen, 
         showModal 
     } = props;
@@ -68,8 +69,8 @@ const Dashboard = props => {
                 currentUserID={currentUserID} 
                 addPlant={addPlant} 
                 showModal={showModal} 
-            />
-            
+                toggleLoading={toggleLoading}
+            />   
             <Switch>
                 <Route 
                     exact path="/" 
@@ -77,6 +78,8 @@ const Dashboard = props => {
                         {...props}
                         plants={plants}
                         deletePlant={deletePlant}
+                        isLoading={isLoading}
+                        toggleLoading={toggleLoading} 
                     />}
                 />
 
@@ -85,6 +88,7 @@ const Dashboard = props => {
                     render={(props) => <EditProfile {...props} />}
                 />
             </Switch>
+            { isLoading ? <LoadingIndicator /> : null }
         </MainContainer>
     );
 }

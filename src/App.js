@@ -4,7 +4,7 @@ import { axiosWithAuth } from './utils/axiosWithAuth';
 import { useLocalStorage } from './components/CustomHooks';
 import { ToastContainer, toast } from "react-toastify";
 import Dashboard from "./components/Dashboard";
-import UserForm from "./components/Onboarding/UserForm";
+import Register from "./components/Onboarding/Register";
 import Login from "./components/Onboarding/Login";
 
 import axios from "axios";
@@ -13,13 +13,14 @@ import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
 
-  const [ plants, setPlants ] = useState([]);
-  const [ isModalOpen, setModalOpen ] = useState(false);
-  const [ isAuthenticated, setIsAuthenticated ] = useLocalStorage('isAuthenticated', false);
-  const [ currentUser, setCurrentUser ] = useLocalStorage('username', '');
-  const [ token, setToken ] = useLocalStorage('token', '');
-  const [ currentUserID, setCurrentUserID ] = useState('');
-  const [ newPlant, setNewPlant ] = useState(null);
+  const [ plants, setPlants ] = useState([]); //All the plants for the user
+  const [ isLoading, setLoadingIndicator ] = useState(false); //Loading Indicator
+  const [ isModalOpen, setModalOpen ] = useState(false); //Modal Toggle
+  const [ isAuthenticated, setIsAuthenticated ] = useLocalStorage('isAuthenticated', false); //Is User Authenticated (for private routes)
+  const [ currentUser, setCurrentUser ] = useLocalStorage('username', ''); //Current Logged In User
+  const [ currentUserID, setCurrentUserID ] = useState(''); //UserID for current loggedIn user. Used to post requests
+  const [ token, setToken ] = useLocalStorage('token', ''); //User Token. Set to local storage during log in
+  const [ newPlant, setNewPlant ] = useState(null); //Object to detect if a new plant is added and what should happen after
 
 
   const addCurrentUser = (user) => {
@@ -34,11 +35,44 @@ const App = () => {
     setIsAuthenticated(!isAuthenticated)
   }
 
+  const toggleLoading = (bool) => {
+    setLoadingIndicator(bool);
+  }
+
+  const showModal = (e) => {
+    e.preventDefault();
+    setModalOpen(!isModalOpen);
+  }
+
   const notify = (msg, type) => {
     toast[`${type}`](msg, {
       position: "top-right"
     });
   }
+
+  const addPlant = ( newPlantObj ) => {
+    axiosWithAuth()
+      .post("plants/plant", newPlantObj)
+      .then(res => {
+        setNewPlant(res.data);
+        toggleLoading(false);
+        notify('New Plant Added', 'success')
+      })
+      .catch(err => notify('Unsuccessful! Try Again', 'error'))
+  }
+
+  const deletePlant = (plantid, plantObj) => {
+    toggleLoading(true);
+    axiosWithAuth()
+      .delete(`plants/plant/${plantid}`)
+      .then(res => {
+        setNewPlant(plantObj);
+        toggleLoading(false);
+        notify('Plant Deleted', 'success')
+      })
+      .catch(err => notify('Unsuccessful! Try Again', 'error'))
+  }
+
 
   useEffect(() => {
     if(currentUser !== '') {
@@ -46,53 +80,35 @@ const App = () => {
         .get(`https://nchampag-watermyplants.herokuapp.com/getuser/${currentUser}`)
         .then(res => {
           setCurrentUserID(res.data.userid);
-          setPlants(res.data.plants);
+          toggleLoading(false);
         })
+        .catch(err => notify('Unsuccessful! Refresh page', 'error'))
     }
   }, [currentUser])
 
   useEffect(() => {
-    if(newPlant !== null) {
-      axios
-        .get(`https://nchampag-watermyplants.herokuapp.com/getuser/${currentUser}`)
-        .then(res => {
-          setPlants(res.data.plants);
-        })
-    }
+    toggleLoading(true);
+    axios
+      .get(`https://nchampag-watermyplants.herokuapp.com/getuser/${currentUser}`)
+      .then(res => {
+        setPlants(res.data.plants);
+        toggleLoading(false);
+      })
+      .catch(err => notify('Unsuccessful! Refresh page', 'error'))
   }, [currentUser, newPlant])
 
-
-  const addPlant = ( newPlantObj ) => {
-    axiosWithAuth()
-      .post("plants/plant", newPlantObj)
-      .then(res => {
-        setNewPlant(res.data);
-        notify('New Plant Added', 'success')
-      })
-      .catch(err => notify('Unsuccessful! Try Again', 'error'))
-  }
-
-  const deletePlant = (plantid, plantObj) =>{
-    axiosWithAuth()
-      .delete(`plants/plant/${plantid}`)
-      .then(res => {
-        setNewPlant(plantObj);
-        notify('Plant Deleted', 'success')
-      })
-      .catch(err => notify('Unsuccessful! Try Again', 'error'))
-  }
-
-  // Handler Functions
-  const showModal = (e) => {
-    setModalOpen(!isModalOpen);
-  }
 
   return (   
     <>   
       <Switch>
         <Route 
           path="/register" 
-          render={(props) => <UserForm notify={notify} {...props} />}
+          render={(props) => <Register
+            notify={notify} 
+            isLoading={isLoading}
+            toggleLoading={toggleLoading}
+            {...props} 
+          />}
         />
 
         <Route 
@@ -100,6 +116,8 @@ const App = () => {
           render={(props) => <Login 
             notify={notify}
             addToken={addToken} 
+            isLoading={isLoading}
+            toggleLoading={toggleLoading}
             toggleAuthentication={toggleAuthentication} 
             addCurrentUser={addCurrentUser} 
             currentUser={currentUser} {...props} 
@@ -116,6 +134,8 @@ const App = () => {
                     deletePlant={deletePlant}
                     currentUser={currentUser}
                     currentUserID={currentUserID}
+                    isLoading={isLoading}
+                    toggleLoading={toggleLoading}
                     isModalOpen={isModalOpen}
                     showModal={showModal}
                     toggleAuthentication={toggleAuthentication}

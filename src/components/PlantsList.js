@@ -4,7 +4,7 @@ import notFound from "../img/not-found.svg";
 
 
 const PlantsList = props => {
-    const { plants, deletePlant } = props;
+    const { plants, isLoading, deletePlant } = props;
     
     return (
         <ListContainer>

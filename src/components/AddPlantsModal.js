@@ -5,7 +5,7 @@ import AddPlantsForm from './Forms/AddPlantsForm';
 
 const AddPlantsModal = props => {
 
-  const { isModalOpen, showModal, addPlant, currentUser, currentUserID } = props;
+  const { isModalOpen, showModal, toggleLoading, addPlant, currentUser, currentUserID } = props;
 
   return (
     isModalOpen && (
@@ -16,6 +16,7 @@ const AddPlantsModal = props => {
           addPlant={addPlant}
           currentUser={currentUser}
           currentUserID={currentUserID}
+          toggleLoading={toggleLoading}
         />
       </MainContainer>
     )
