@@ -22,70 +22,11 @@ export const EDIT_PLANT_FAILURE = "EDIT_PLANT_FAILURE"
 
 //add failures
 
-// export const userSignUp = (newUser) =>{
-//   console.log("ANOTHER TEST")
-//     // dispatch({type: USER_SIGNUP});
-//     console.log("TESTING")
-//        return axios
-//         .post("https://nchampag-watermyplants.herokuapp.com/createnewuser", newUser) //this information should be imported from the sign up form. //done
-//         .then(res=>{
-//             console.log("res inside of userSignUp",res)
-//             localStorage.setItem("token", res.data.token); //shows in application console
-//             // props.history.push("/login"); //
-//             // dispatch({
-//             //   type: USER_SIGNUP_SUCCESS
-//             // });
-//         })
-//         .catch(error => console.log("error FROM USERSIGNUP inside actions", error),
-//          ); 
-    
-// } 
+
 
 ///////LOGIN///////////
 
 
-export const userLogIn = (newUser) => { //WHEN I TRY TO CURRY DISPATCH HERE IT BREAKS THE CODE
-    
-    //   dispatch({ type: LOGIN_START });
-      axios
-        .post(
-          "https://nchampag-watermyplants.herokuapp.com/login",
-          `grant_type=password&username=${newUser.username}&password=${newUser.password}`,
-          {
-            headers: {
-              Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
-              "Content-Type": "application/x-www-form-urlencoded"
-            }
-          }
-        )
-        .then(res => {
-          console.log("cat", res);
-          localStorage.setItem("token", res.data.access_token);
-        //   dispatch({ type: LOGIN_SUCCESS });
-        let plantUser = localStorage.getItem("username");
-                axiosWithAuth()
-                  .get(`plants/userName/${plantUser}`)
-                  .then(res => {
-                      console.log("res inside userName", res)
-                    //   (PLANTS HERE ARE INSIDE OF Response.DATA)
-                    // dispatch({type: GOT_PLANTS, payload: res.data})
-                    // history.push('/dashboard')
-                })
-                  })
-                //   .catch(err => 
-                //     dispatch({type: ERROR_GETTING_PLANTS, payload: err}))
-              .catch(err => {
-                console.log(err.response)
-                // dispatch({type: ERROR_GETTING_USER, payload: err.response})
-            })
-        // })
-        .catch(err => {
-          console.dir(err);
-        //   dispatch({ type: LOGIN_FAIL });
-        });
-
-   };
-////////////////ABOVE THIS LINE, TO LOGIN, WORKS////////////////////
 
 
 
