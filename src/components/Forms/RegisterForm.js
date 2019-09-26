@@ -6,7 +6,7 @@ import axios from "axios";
 
 const RegisterForm = props => {
 
-    const { history } = props;
+    const { history, notify } = props;
 
     const userSignUp = (newUser) =>{
         axios
@@ -14,7 +14,7 @@ const RegisterForm = props => {
             .then(res => {
                 history.push('/login')
             })
-            .catch(error => console.log("error FROM USERSIGNUP inside actions", error));    
+            .catch(error => notify('Unsuccessful! Try Again', 'error'));    
     } 
 
     const initialNewUser = {
