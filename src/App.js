@@ -80,23 +80,12 @@ const App = () => {
         .get(`https://nchampag-watermyplants.herokuapp.com/getuser/${currentUser}`)
         .then(res => {
           setCurrentUserID(res.data.userid);
+          setPlants(res.data.plants);
           toggleLoading(false);
         })
         .catch(err => notify('Unsuccessful! Refresh page', 'error'))
     }
-  }, [currentUser])
-
-  useEffect(() => {
-    toggleLoading(true);
-    axios
-      .get(`https://nchampag-watermyplants.herokuapp.com/getuser/${currentUser}`)
-      .then(res => {
-        setPlants(res.data.plants);
-        toggleLoading(false);
-      })
-      .catch(err => notify('Unsuccessful! Refresh page', 'error'))
   }, [currentUser, newPlant])
-
 
   return (   
     <>   

@@ -4,7 +4,7 @@ import notFound from "../img/not-found.svg";
 
 
 const PlantsList = props => {
-    const { plants, isLoading, deletePlant } = props;
+    const { plants, deletePlant } = props;
     
     return (
         <ListContainer>
@@ -112,6 +112,10 @@ const ListContainer = styled.div`
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
+        @media (max-width: 768px) {
+            min-height: 300px;
+        }
 
         img {
             max-width: 150px;
