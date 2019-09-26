@@ -2,13 +2,20 @@ import React, { useState } from "react";
 import { Form } from './Styles';
 import { axiosWithAuth } from "../../utils/axiosWithAuth"
 
-const EditProfileForm = () => {
+const EditProfileForm = (props) => {
+
+    const { currentUserID } = props;
 
     const initialProfileInfo = {
+        userid: currentUserID,
         username: '',
-        phonenumber: '',
-        password: ''
+        password: '',
+        phonenumber: ''
+
     }
+    
+    console.log(currentUserID)
+    console.log(typeof(currentUserID))
 
     const [ profileInfo, setProfileInfo] = useState(initialProfileInfo);
 
@@ -22,13 +29,16 @@ const EditProfileForm = () => {
         })
     }
 
-    let userid = parseInt(localStorage.getItem("userid"));
+    // let userid = parseInt(localStorage.getItem("userid"));
 
- const updateProfile = (userid) =>{
+ const updateProfile = (currentUserID) =>{
+     console.log(currentUserID) //23
         axiosWithAuth()
-            .put(`user/${userid}`, profileInfo )
+            .put(`https://nchampag-watermyplants.herokuapp.com/user/23`, profileInfo )
             .then(res=>{
                 console.log("NEWPROFILE", profileInfo)
+                console.log("UserID", currentUserID)
+                console.log(res)
             })
             .catch(error =>
                 console.log(error))
@@ -36,13 +46,13 @@ const EditProfileForm = () => {
 
     const handleFormSubmit = (e) => {
         
-        if(username && phonenumber && password) {
             e.preventDefault();
             console.log("value of newUser inside of EDIT PROFILE handleFormSubmit", profileInfo);
-            updateProfile(userid)
+            updateProfile(currentUserID)
+            console.log("inside HFS",currentUserID)
             //this is running the function above with the userid from local storage to the endpoint (as a number) and then the function is sending in the profile info needed to update.
             setProfileInfo(initialProfileInfo);
-        }
+        
     }
 
    
@@ -55,17 +65,17 @@ const EditProfileForm = () => {
 
             <div className="form-inputs">
                 <label htmlFor="username">Username</label>
-                <input type='text' id="username" name='username' onChange={handleInputChange} value={username} placeholder='Username' required/>
+                <input type='text' id="username" name='username' onChange={handleInputChange} value={username} placeholder='Username' />
             </div>
 
             <div className="form-inputs">
                 <label htmlFor="phonenumber">Phone Number</label>
-                <input type='phonenumber' id="phonenumber" name='phonenumber' onChange={handleInputChange} value={phonenumber} placeholder='Phone Number' required/>
+                <input type='phonenumber' id="phonenumber" name='phonenumber' onChange={handleInputChange} value={phonenumber} placeholder='Phone Number' />
             </div>
 
             <div className="form-inputs">
                 <label htmlFor="password">Password</label>
-                <input type='password' id="password" name='password' onChange={handleInputChange} value={password} placeholder='Password' required/>
+                <input type='password' id="password" name='password' onChange={handleInputChange} value={password} placeholder='Password' />
             </div>
 
             <button type='submit' onClick={handleFormSubmit}>

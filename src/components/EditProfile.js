@@ -5,15 +5,13 @@ import EditProfileForm from './Forms/EditProfileForm';
 
 const EditProfile = props => {
 
-  const { loggedInUser, handleInputChange, handleFormSubmit } = props;
+  const { currentUserID } = props;
 
   return (
     <MainContainer>
       <div className="hero-background"></div>
       <EditProfileForm 
-        loggedInUser={loggedInUser}
-        handleInputChange={handleInputChange}
-        handleFormSubmit={handleFormSubmit}
+        currentUserID={currentUserID}
       />
     </MainContainer>
   );

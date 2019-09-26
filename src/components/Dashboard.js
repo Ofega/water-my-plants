@@ -85,7 +85,8 @@ const Dashboard = props => {
 
                 <Route 
                     path="/edit-profile" 
-                    render={(props) => <EditProfile {...props} />}
+                    render={(props) => <EditProfile {...props}
+                    currentUserID={currentUserID} />}
                 />
             </Switch>
             { isLoading ? <LoadingIndicator /> : null }
